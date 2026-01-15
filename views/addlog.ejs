@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IT Work Book</title>
+    <link rel="stylesheet" href="/style.css" />
+    <script
+      src="https://kit.fontawesome.com/bb7a749298.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <%- include('./partials/navbar') %>
+    <div class="container">
+      <div class="login_box">
+        <div class="login_box_left">
+          <img src="/form.png" alt="" />
+        </div>
+        <div class="login_box_right">
+          <h2>Add Log</h2>
+          <form action="/addlog" method="POST">
+            <input
+              type="text"
+              placeholder="Issue Location"
+              name="issue-location"
+            />
+            <input type="text" placeholder="Problem" name="problem" />
+            <textarea name="action" id="action"></textarea>
+            <select name="status" id="status">
+              <option value="">-----Select-----</option>
+              <option value="pending">Pending</option>
+              <option value="solved">Solved</option>
+              <option value="unsolved">Unsolved</option>
+            </select>
+            <button type="submit">Add Log</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

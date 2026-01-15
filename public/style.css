@@ -15,6 +15,7 @@
 }
 .login_box {
   display: flex;
+  gap: 20px;
   justify-content: space-between;
   align-items: center;
   background-color: #fff;
@@ -58,7 +59,6 @@
 .login_box_right form input {
   width: 300px;
   height: 40px;
-  margin-bottom: 20px;
   border-radius: 5px;
   border: 1px solid #ccc;
   padding: 10px;
@@ -83,13 +83,19 @@
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   padding: 5px 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
 }
 .navbar_left {
   display: flex;
   align-items: center;
+  gap: 10px;
+  color: rgb(156, 103, 5);
 }
 .navbar_left img {
-  width: 5rem;
+  width: 6rem;
 }
 .navbar_right {
   display: flex;
@@ -117,43 +123,141 @@
 .navbar_right ul li a:hover {
   color: crimson;
 }
-.sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 200px;
-  background-color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+.main {
+  width: 100%;
+  margin-top: 6vh;
+  display: flex;
+  justify-content: center;
+}
+.sub_main {
+  width: 60%;
+
+  margin: 20px 0;
   padding: 20px;
 }
-.sidebar_img {
-  text-align: center;
+.main_tools {
+  width: 100%;
+  text-align: right;
   margin-bottom: 20px;
 }
-.sidebar_img img {
-  width: 10rem;
+.search input {
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  font-size: 16px;
+  outline: none;
 }
-.sidebar ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.search button {
+  width: 100px;
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  cursor: pointer;
 }
-.sidebar ul li {
-  margin-bottom: 10px;
+.search button:hover {
+  background-color: #ccc;
 }
-.sidebar ul li a {
+.heading {
+  text-align: center;
+  margin: 20px 0;
+}
+.company {
   display: flex;
-  gap: 5px;
+  justify-content: space-evenly;
   align-items: center;
-  text-decoration: none;
-  color: rgb(156, 103, 5);
+  text-align: center;
+}
+
+.company .logo img {
+  width: 150px;
+  height: 100px;
+}
+.name h1 {
+  font-size: 3rem;
+  color: #ed7a23;
+}
+.name p {
   font-size: 1rem;
+  color: grey;
 }
-.sidebar ul li a:hover {
-  color: crimson;
+.info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.main {
-  margin-left: 200px;
+.info p {
+  font-weight: 600;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 5px 0;
+}
+td,
+th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+th {
+  color: whitesmoke;
+}
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+.center {
+  text-align: center;
+}
+hr {
+  margin: 10px 0;
+  border: 1px solid #ccc;
+}
+.complain_box {
+  width: 100%;
+  display: flex;
+  margin: 20px 0;
   padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+.complain_box_left img {
+  width: 100%;
+}
+.complain_box_left {
+  width: 50%;
+}
+.complain_box_right {
+  width: 50%;
+  padding: 0 40px;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+form input {
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  font-size: 16px;
+  outline: none;
+}
+textarea {
+  width: 100%;
+  height: 100px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  font-size: 16px;
+  outline: none;
+}
+select {
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  font-size: 16px;
+  outline: none;
 }
