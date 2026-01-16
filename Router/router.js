@@ -1,12 +1,19 @@
 import { Router } from "express";
-import { addlog, homepage, loginpage } from "../controller/controller.js";
+import {
+  addlogpage,
+  forgetpage,
+  loginpage,
+  signuppage,
+} from "../controller/controller.js";
 
 const router = Router();
 
-router.route("/").get(homepage);
-
 router.route("/login").get(loginpage);
 
-router.route("/addlog").get(addlog);
+router.route("/signup").get(signuppage);
+
+router.route("/forget").get(forgetpage);
+
+router.route("/addlog").get(addlogpage);
 
 export const routerdata = router;

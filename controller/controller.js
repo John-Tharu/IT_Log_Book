@@ -1,11 +1,15 @@
 export const loginpage = (req, res) => {
-  res.render("loginpage");
+  res.render("login");
 };
 
-export const homepage = (req, res) => {
-  res.render("homepage");
+export const signuppage = (req, res) => {
+  res.render("signup");
 };
 
-export const addlog = (req, res) => {
+export const forgetpage = (req, res) => {
+  res.render("forget");
+};
+
+export const addlogpage = (req, res) => {
   res.render("addlog");
 };

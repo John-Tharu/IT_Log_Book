@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>IT Work Book</title>
+    <title>Add Log | Form</title>
     <link rel="stylesheet" href="/style.css" />
     <script
       src="https://kit.fontawesome.com/bb7a749298.js"
@@ -11,32 +11,46 @@
     ></script>
   </head>
   <body>
-    <%- include('./partials/navbar') %>
-    <div class="container">
-      <div class="login_box">
-        <div class="login_box_left">
-          <img src="/form.png" alt="" />
+    <div class="wrapper">
+      <div class="title"><span>Add Log</span></div>
+      <form action="#" method="post">
+        <div class="row">
+          <p class="error">Incorrect Email or Password</p>
         </div>
-        <div class="login_box_right">
-          <h2>Add Log</h2>
-          <form action="/addlog" method="POST">
-            <input
-              type="text"
-              placeholder="Issue Location"
-              name="issue-location"
-            />
-            <input type="text" placeholder="Problem" name="problem" />
-            <textarea name="action" id="action"></textarea>
-            <select name="status" id="status">
-              <option value="">-----Select-----</option>
-              <option value="pending">Pending</option>
-              <option value="solved">Solved</option>
-              <option value="unsolved">Unsolved</option>
-            </select>
-            <button type="submit">Add Log</button>
-          </form>
+        <div class="rows date-time">
+          <div class="date">
+            <label for="">Issue Date</label>
+            <input type="date" name="issue-date" required />
+          </div>
+          <div class="time">
+            <label for="">Issue Time</label>
+            <input type="time" name="issue-time" required />
+          </div>
         </div>
-      </div>
+        <div class="rows">
+          <label for="">Issue Location</label>
+          <input type="text" name="issue-location" required />
+        </div>
+        <div class="rows">
+          <label for="">Issue Description</label>
+          <input type="text" name="issue-description" required />
+        </div>
+        <div class="rows">
+          <label for="">Action Taken</label>
+          <textarea name="action" rows="3" id="action"></textarea>
+        </div>
+        <div class="rows">
+          <label for="">Status</label>
+          <select name="status" id="status">
+            <option value="">----- Select Status -----</option>
+            <option value="solved">Solved</option>
+            <option value="pending">Pending</option>
+          </select>
+        </div>
+        <div class="row button">
+          <input type="submit" value="Submit" />
+        </div>
+      </form>
     </div>
   </body>
 </html>
