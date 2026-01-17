@@ -13,3 +13,7 @@ export const forgetpage = (req, res) => {
 export const addlogpage = (req, res) => {
   res.render("addlog");
 };
+
+export const dashboardpage = (req, res) => {
+  res.render("dashboard");
+};

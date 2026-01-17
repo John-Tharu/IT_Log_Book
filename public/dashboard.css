@@ -1,0 +1,194 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+body {
+  background: #f2f2f2;
+}
+nav {
+  position: fixed;
+  top: 0;
+  left: 10%;
+  width: 80%;
+  height: 80px;
+  background: #16a085;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 50px;
+  z-index: 99;
+}
+.heading {
+  color: #fff;
+  font-size: 20px;
+}
+.navbar ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.navbar ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 8px 15px;
+  border-radius: 5px;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+}
+.navbar ul li a.active,
+.navbar ul li a:hover {
+  background: #12876f;
+}
+.container {
+  width: 75%;
+  margin: 0 auto;
+  padding-top: 100px;
+}
+.dashboard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.dashboard-heading .logos {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.logos i {
+  font-size: 70px;
+  color: #16a085;
+}
+.dashboard-heading h2 {
+  font-size: 18px;
+}
+.dashboard-btn button {
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: 1px solid #16a085;
+  background: #16a085;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.dashboard-btn button:hover {
+  background: #12876f;
+}
+.details {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 20px;
+  border-radius: 5px;
+}
+.details a {
+  text-decoration: none;
+  color: #000;
+}
+.total-logs {
+  padding: 20px;
+  border-radius: 5px;
+  color: #fff;
+}
+.total-logs i {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+.total {
+  background-color: #16a085;
+}
+.this-week {
+  background-color: #3498db;
+}
+.solved {
+  background-color: #2ecc71;
+}
+.pending {
+  background-color: #e67e22;
+}
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  width: 100%;
+  padding: 20px;
+  gap: 20px;
+}
+.recent-logs,
+.pending-logs {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow:
+    rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+.log {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  box-shadow:
+    rgba(0, 0, 0, 0.05) 0px 0px 0px 1px,
+    rgb(209, 213, 219) 0px 0px 0px 1px inset;
+  padding: 20px;
+  border-radius: 5px;
+}
+.log-heading i {
+  font-size: 25px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.log-heading h2 {
+  font-size: 18px;
+  font-weight: 300;
+}
+.log-heading h3 {
+  font-size: 18px;
+  font-weight: 500;
+}
+.log-heading button {
+  padding: 12px;
+  border-radius: 5px;
+  border: 1px solid #16a085;
+  background: #16a085;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.log-heading button:hover {
+  background: #12876f;
+}
+.log-heading p {
+  font-size: 14px;
+  color: grey;
+}
+@media only screen and (max-width: 1000px) {
+  nav {
+    left: 0;
+    width: 100%;
+  }
+  .container {
+    width: 95%;
+  }
+  .details {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media only screen and (max-width: 600px) {
+  .details,
+  .wrapper {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .dashboard {
+    flex-direction: column;
+    gap: 20px;
+  }
+}

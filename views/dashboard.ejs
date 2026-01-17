@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard | Log Book</title>
+    <link rel="stylesheet" href="/dashboard.css" />
+    <script
+      src="https://kit.fontawesome.com/bb7a749298.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <%- include('partials/navbar') %>
+    <div class="container">
+      <div class="dashboard">
+        <div class="dashboard-heading">
+          <div class="logos">
+            <i class="fa-brands fa-dailymotion"></i>
+            <h1>Daily Log Book</h1>
+          </div>
+          <p>Track your daily logs and events</p>
+        </div>
+        <div class="dashboard-btn">
+          <a href="/addlog"
+            ><button><i class="fa-solid fa-plus"></i> Add Log</button></a
+          >
+        </div>
+      </div>
+      <div class="details">
+        <a href="#">
+          <div class="total-logs total">
+            <i class="fa-solid fa-book-open"></i>
+            <p>Total Logs</p>
+            <h3>500</h3>
+          </div>
+        </a>
+        <a href="#">
+          <div class="total-logs this-week">
+            <i class="fa-solid fa-calendar-days"></i>
+            <p>This Week</p>
+            <h3>21</h3>
+          </div>
+        </a>
+        <a href="#">
+          <div class="total-logs solved">
+            <i class="fa-solid fa-circle-check"></i>
+            <p>Solved</p>
+            <h3>20</h3>
+          </div>
+        </a>
+        <a href="#">
+          <div class="total-logs pending">
+            <i class="fa-solid fa-clock"></i>
+            <p>Pending</p>
+            <h3>1</h3>
+          </div>
+        </a>
+      </div>
+      <div class="wrapper">
+        <div class="recent-logs">
+          <div class="log-heading">
+            <i class="fa-solid fa-clock-rotate-left">
+              <h2>Recent Logs</h2>
+            </i>
+            <div class="log">
+              <div class="log-name">
+                <h3>Printer Jam</h3>
+                <p>John . 2025-14-12</p>
+              </div>
+              <div class="log-btn">
+                <a href="#"><button>View</button></a>
+              </div>
+            </div>
+            <div class="log">
+              <div class="log-name">
+                <h3>Room TV 2021</h3>
+                <p>John . 2025/14/12</p>
+              </div>
+              <div class="log-btn">
+                <a href="#"><button>View</button></a>
+              </div>
+            </div>
+            <div class="log">
+              <div class="log-name">
+                <h3>Room TV 2021</h3>
+                <p>John . 2025/14/12</p>
+              </div>
+              <div class="log-btn">
+                <a href="#"><button>View</button></a>
+              </div>
+            </div>
+            <div class="log">
+              <div class="log-name">
+                <h3>Room TV 2021</h3>
+                <p>John . 2025/14/12</p>
+              </div>
+              <div class="log-btn">
+                <a href="#"><button>View</button></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pending-logs">
+          <div class="log-heading">
+            <i class="fa-solid fa-clock">
+              <h2>Pending Logs</h2>
+            </i>
+            <div class="log">
+              <div class="log-name">
+                <h3>Printer Jam</h3>
+                <p>John . 2025/14/12</p>
+              </div>
+              <div class="log-btn">
+                <a href="#"><button>View</button></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    let menu = document.getElementById("menu");
+    let menuBtn = document.querySelector(".menuBtn");
+    let closeBtn = document.querySelector(".closeBtn");
+
+    function openMenu() {
+      menu.style.display = "block";
+      menuBtn.style.display = "none";
+      closeBtn.style.display = "block";
+    }
+  </script>
+</html>
