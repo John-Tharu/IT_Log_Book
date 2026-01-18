@@ -17,3 +17,11 @@ export const addlogpage = (req, res) => {
 export const dashboardpage = (req, res) => {
   res.render("dashboard");
 };
+
+export const totallogpage = (req, res) => {
+  res.render("totallog");
+};
+
+export const viewlogpage = (req, res) => {
+  res.render("viewlog");
+};

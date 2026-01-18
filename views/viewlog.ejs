@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>View Log | Log Book</title>
+    <link rel="stylesheet" href="/dashboard.css" />
+    <script
+      src="https://kit.fontawesome.com/bb7a749298.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <%- include('partials/navbar') %>
+    <div class="container">
+      <div class="dashboard">
+        <div class="dashboard-heading">
+          <div class="logos">
+            <i class="fa-brands fa-dailymotion"></i>
+            <h1>Daily Log Book</h1>
+          </div>
+          <p>Track your daily logs and events</p>
+        </div>
+        <div class="dashboard-btn">
+          <a href="/addlog"
+            ><button><i class="fa-solid fa-plus"></i> Add Log</button></a
+          >
+        </div>
+      </div>
+      <div class="view-log">
+        <h1>Printer Jam</h1>
+        <div class="view-info">
+          <p><b>John</b> . 2025-14-12</p>
+          <p><strong>Location</strong> : Room TV 2021</p>
+        </div>
+        <p>
+          <strong>Status</strong> : <span class="mark">Solved</span> by John
+        </p>
+        <p>
+          <strong>Action Taken</strong> : Printer was jamming due to paper
+          misalignment. Fixed rollers and cleaned trey.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
