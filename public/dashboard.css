@@ -182,8 +182,15 @@ nav {
   font-size: 25px;
   display: flex;
   align-items: center;
+  text-transform: capitalize;
   gap: 10px;
   margin-bottom: 20px;
+}
+.green {
+  border-left: 5px solid #16a085;
+}
+.orange {
+  border-left: 5px solid #e67e22;
 }
 .log-info i {
   font-size: 25px;
@@ -197,8 +204,10 @@ nav {
   font-weight: 300;
 }
 .log h3 {
-  font-size: 18px;
-  font-weight: 500;
+  font-size: 15px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 6px;
 }
 .log button {
   padding: 12px;
@@ -213,8 +222,8 @@ nav {
   background: #12876f;
 }
 .log p {
-  font-size: 14px;
-  color: grey;
+  font-size: 13px;
+  color: #888;
 }
 .open {
   display: none;
@@ -234,29 +243,89 @@ nav {
   font-size: 22px;
   font-weight: 400;
 }
-.view-log {
-  width: 60%;
-  margin: 50px auto;
+.all-logs {
+  margin: 20px auto;
+  max-width: 80%;
+  /* max-width: 520px; */
+  background: #ffffff;
+  /* box-shadow:
+    rgba(0, 0, 0, 0.05) 0px 0px 0px 1px,
+    rgb(209, 213, 219) 0px 0px 0px 1px inset; */
   padding: 20px;
-  background: white;
   border-radius: 5px;
-  box-shadow:
-    rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
-    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  padding: 24px;
 }
-.view-log p {
-  margin: 10px;
-  color: gray;
-  font-size: 18px;
+.all-log-box {
+  width: 95%;
+  margin: 0 auto;
 }
-.view-info {
+.ticket-card {
+  margin: 20px auto;
+  max-width: 80%;
+  /* max-width: 520px; */
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  padding: 24px;
+  border-left: 6px solid #16a085;
+}
+
+.ticket-header {
   display: flex;
-  gap: 20px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
 }
-.mark {
-  background-color: #2ecc71;
-  color: #fff;
-  padding: 4px 8px;
+.ticket-title {
+  font-size: 22px;
+  font-weight: 600;
+  color: #2c3e50;
+}
+.ticket-date {
+  font-size: 13px;
+  color: #888;
+}
+.ticket-info {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.info-box {
+  background: #f8f9fb;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  color: #444;
+}
+.info-box span {
+  display: block;
+  font-size: 12px;
+  color: #777;
+  margin-bottom: 4px;
+}
+.status {
+  display: inline-block;
+  padding: 6px 14px;
+  background: #e7f8ee;
+  color: #1e874b;
+  font-weight: 600;
+  border-radius: 20px;
+  font-size: 13px;
+  margin-bottom: 14px;
+}
+.action-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 6px;
+}
+.action-text {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.6;
+  background: #f8f9fb;
+  padding: 14px;
   border-radius: 10px;
 }
 @media only screen and (max-width: 1000px) {
@@ -296,12 +365,5 @@ nav {
   }
   .slidebar {
     display: flex;
-  }
-  .view-log {
-    width: 90%;
-  }
-  .view-info {
-    flex-direction: column;
-    gap: 0;
   }
 }
