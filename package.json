@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "argon2": "^0.43.0",
     "dotenv": "^17.2.3",
     "drizzle-orm": "^0.45.1",
     "ejs": "^4.0.1",

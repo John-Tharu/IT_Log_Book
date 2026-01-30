@@ -1,0 +1,2 @@
+ALTER TABLE `user_logs` ADD `solved_by` int;--> statement-breakpoint
+ALTER TABLE `user_logs` ADD CONSTRAINT `user_logs_solved_by_users_table_id_fk` FOREIGN KEY (`solved_by`) REFERENCES `users_table`(`id`) ON DELETE no action ON UPDATE no action;

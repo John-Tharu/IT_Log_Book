@@ -13,27 +13,29 @@
   <body>
     <div class="wrapper">
       <div class="title"><span>Add Log</span></div>
-      <form action="#" method="post">
-        <div class="row">
-          <p class="error">Incorrect Email or Password</p>
-        </div>
+      <form id="myForm" action="/addlog" method="post">
+        <% if(msg && msg.length > 0){ %>
+          <div class="row">
+            <p class="error"><%= msg %></p>
+          </div>
+          <%  } %>
         <div class="rows date-time">
           <div class="date">
             <label for="">Issue Date</label>
-            <input type="date" name="issue-date" required />
+            <input type="date" name="date" required />
           </div>
           <div class="time">
             <label for="">Issue Time</label>
-            <input type="time" name="issue-time" required />
+            <input type="time" name="time" required />
           </div>
         </div>
         <div class="rows">
           <label for="">Issue Location</label>
-          <input type="text" name="issue-location" required />
+          <input type="text" name="location" required />
         </div>
         <div class="rows">
           <label for="">Issue Description</label>
-          <input type="text" name="issue-description" required />
+          <input type="text" name="description" required />
         </div>
         <div class="rows">
           <label for="">Action Taken</label>
@@ -43,8 +45,8 @@
           <label for="">Status</label>
           <select name="status" id="status">
             <option value="">----- Select Status -----</option>
-            <option value="solved">Solved</option>
-            <option value="pending">Pending</option>
+            <option value="Solved">Solved</option>
+            <option value="Pending">Pending</option>
           </select>
         </div>
         <div class="row button">
@@ -53,4 +55,13 @@
       </form>
     </div>
   </body>
+  <script>
+  const form = document.getElementById("myForm");
+
+  form.addEventListener("submit", () => {
+    setTimeout(() => {
+      form.reset();
+    }, 0);
+  });
+</script>
 </html>

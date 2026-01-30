@@ -64,6 +64,12 @@
     </div>
   </body>
   <script>
+    window.addEventListener("pageshow", function (event) {
+    if (event.persisted) {
+      window.location.reload();
+    }
+  });
+
     function togglePassword(eyeIcon, inputId) {
       const input = document.getElementById(inputId);
 
@@ -78,5 +84,6 @@
 
     togglePassword(document.querySelector(".fa-eye"), "password");
     togglePassword(document.querySelector(".cpass"), "cpassword");
+    
   </script>
 </html>

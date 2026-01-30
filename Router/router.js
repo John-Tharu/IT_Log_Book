@@ -8,7 +8,7 @@ import {
   signuppage,
   viewlogpage,
 } from "../controller/controller.js";
-import { login, signup } from "../controller/postcontroller.js";
+import { addlog, login, signup } from "../controller/postcontroller.js";
 
 const router = Router();
 
@@ -20,7 +20,7 @@ router.route("/signup").get(signuppage).post(signup);
 
 router.route("/forget").get(forgetpage);
 
-router.route("/addlog").get(addlogpage);
+router.route("/addlog").get(addlogpage).post(addlog);
 
 router.route("/loglist/:list").get(loglistpage);
 

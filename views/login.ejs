@@ -15,9 +15,11 @@
       <div class="wrapper">
         <div class="title"><span>Login</span></div>
         <form action="/login" method="post">
+          <% if(msg && msg.length > 0){ %>
           <div class="row">
-            <p class="error">Incorrect Email or Password</p>
+            <p class="error"><%= msg %></p>
           </div>
+          <%  } %>
           <div class="row">
             <i class="fa-regular fa-envelope"></i>
             <input
@@ -51,6 +53,11 @@
     </div>
   </body>
   <script>
+    window.addEventListener("pageshow", function (event) {
+      if (event.persisted) {
+        window.location.reload();
+      }
+    });
     const eye = document.querySelector(".fa-eye");
     const password = document.querySelector("input[type=password]");
     eye.addEventListener("click", () => {

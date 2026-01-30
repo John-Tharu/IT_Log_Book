@@ -32,28 +32,28 @@
           <div class="total-logs total">
             <i class="fa-solid fa-book-open"></i>
             <p>Total Logs</p>
-            <h3>500</h3>
+            <h3><%= userLog.length %></h3>
           </div>
         </a>
         <a href="/loglist/week">
           <div class="total-logs this-week">
             <i class="fa-solid fa-calendar-days"></i>
             <p>This Week</p>
-            <h3>21</h3>
+            <h3><%= userThisWeekLog.length %></h3>
           </div>
         </a>
         <a href="/loglist/solved">
           <div class="total-logs solved">
             <i class="fa-solid fa-circle-check"></i>
             <p>Solved</p>
-            <h3>20</h3>
+            <h3><%= userSolvedLog.length %></h3>
           </div>
         </a>
         <a href="/loglist/pending">
           <div class="total-logs pending">
             <i class="fa-solid fa-clock"></i>
             <p>Pending</p>
-            <h3>1</h3>
+            <h3><%= userPendingLog.length %></h3>
           </div>
         </a>
       </div>
@@ -63,42 +63,22 @@
             <i class="fa-solid fa-clock-rotate-left">
               <h2>Recent Logs</h2>
             </i>
-            <div class="log green">
-              <div class="log-name">
-                <h3>Printer Jam</h3>
-                <p>John . 2025-14-12</p>
-              </div>
-              <div class="log-btn">
-                <a href="/viewlog"><button>View</button></a>
-              </div>
-            </div>
-            <div class="log orange">
-              <div class="log-name">
-                <h3>Room TV 2021</h3>
-                <p>John . 2025/14/12</p>
-              </div>
-              <div class="log-btn">
-                <a href="#"><button>View</button></a>
-              </div>
-            </div>
-            <div class="log orange">
-              <div class="log-name">
-                <h3>Room TV 2021</h3>
-                <p>John . 2025/14/12</p>
-              </div>
-              <div class="log-btn">
-                <a href="#"><button>View</button></a>
-              </div>
-            </div>
-            <div class="log green">
-              <div class="log-name">
-                <h3>Room TV 2021</h3>
-                <p>John . 2025/14/12</p>
-              </div>
-              <div class="log-btn">
-                <a href="#"><button>View</button></a>
-              </div>
-            </div>
+
+           <% userLog.slice(0, 4).forEach((log) => { 
+                  const status = log.status === "Solved" ? "green" : "orange";
+              %>
+                <div class="log <%= status %>">
+                  <div class="log-name">
+                    <h3><%= log.description %></h3>
+                    <p><%= log.user_id %> · <%= log.date %></p>
+                  </div>
+                  <div class="log-btn">
+                    <a href="/viewlog/<%= log.id %>">
+                      <button>View</button>
+                    </a>
+                  </div>
+                </div>
+              <% }) %>
           </div>
         </div>
         <div class="pending-logs">
@@ -106,15 +86,22 @@
             <i class="fa-solid fa-clock">
               <h2>Pending Logs</h2>
             </i>
-            <div class="log orange">
-              <div class="log-name">
-                <h3>Printer Jam</h3>
-                <p>John . 2025/14/12</p>
-              </div>
-              <div class="log-btn">
-                <a href="#"><button>View</button></a>
-              </div>
-            </div>
+
+            <% userPendingLog.slice(0,4).forEach((pending) =>{
+              %>
+                <div class="log orange">
+                  <div class="log-name">
+                    <h3><%= pending.description %></h3>
+                    <p><%= pending.user_id %> · <%= pending.date %></p>
+                  </div>
+                  <div class="log-btn">
+                    <a href="/viewlog/<%= pending.id %>">
+                      <button>View</button>
+                    </a>
+                  </div>
+                </div>
+              <%
+            }) %>
           </div>
         </div>
       </div>
