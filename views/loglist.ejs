@@ -32,107 +32,31 @@
           <i class="fa-solid <%= icon %>"
             ><h2 style="text-transform: capitalize"><%= title %></h2></i
           >
-          <div class="all-log-box">
-            <div class="log">
-              <div class="log-name">
-                <h3>Printer Jam</h3>
-                <p>John . 2025-14-12</p>
+
+          <% if (Array.isArray(userLogs) && userLogs.length) { %>
+            <% userLogs.forEach((log) => {
+              const status = log.status === "Solved" ? "green" : "orange";
+              %>
+              <div class="all-log-box">
+                <div class="log <%= status %>">
+                  <div class="log-name">
+                    <h3><%= log?.description ?? 'No description' %></h3>
+                    <p>
+                      <%= log?.reportedBy ?? 'Unknown user' %> .
+                      <%= log?.date ?? 'No date' %>
+                    </p>
+                  </div>
+                  <div class="log-btn">
+                    <a href="/viewlog/<%= log.id %>"><button>View</button></a>
+                  </div>
+                </div>
               </div>
-              <div class="log-btn">
-                <a href="/viewlog"><button>View</button></a>
-              </div>
-            </div>
-            <div class="log">
-              <div class="log-name">
-                <h3>Printer Jam</h3>
-                <p>John . 2025-14-12</p>
-              </div>
-              <div class="log-btn">
-                <a href="/viewlog"><button>View</button></a>
-              </div>
-            </div>
-            <div class="log">
-              <div class="log-name">
-                <h3>Printer Jam</h3>
-                <p>John . 2025-14-12</p>
-              </div>
-              <div class="log-btn">
-                <a href="/viewlog"><button>View</button></a>
-              </div>
-            </div>
-            <div class="log">
-              <div class="log-name">
-                <h3>Printer Jam</h3>
-                <p>John . 2025-14-12</p>
-              </div>
-              <div class="log-btn">
-                <a href="/viewlog"><button>View</button></a>
-              </div>
-            </div>
-            <div class="log">
-              <div class="log-name">
-                <h3>Printer Jam</h3>
-                <p>John . 2025-14-12</p>
-              </div>
-              <div class="log-btn">
-                <a href="/viewlog"><button>View</button></a>
-              </div>
-            </div>
-            <div class="log">
-              <div class="log-name">
-                <h3>Printer Jam</h3>
-                <p>John . 2025-14-12</p>
-              </div>
-              <div class="log-btn">
-                <a href="/viewlog"><button>View</button></a>
-              </div>
-            </div>
-            <div class="log">
-              <div class="log-name">
-                <h3>Printer Jam</h3>
-                <p>John . 2025-14-12</p>
-              </div>
-              <div class="log-btn">
-                <a href="/viewlog"><button>View</button></a>
-              </div>
-            </div>
-            <div class="log">
-              <div class="log-name">
-                <h3>Printer Jam</h3>
-                <p>John . 2025-14-12</p>
-              </div>
-              <div class="log-btn">
-                <a href="/viewlog"><button>View</button></a>
-              </div>
-            </div>
-            <div class="log">
-              <div class="log-name">
-                <h3>Room TV 2021</h3>
-                <p>John . 2025/14/12</p>
-              </div>
-              <div class="log-btn">
-                <a href="#"><button>View</button></a>
-              </div>
-            </div>
-            <div class="log">
-              <div class="log-name">
-                <h3>Room TV 2021</h3>
-                <p>John . 2025/14/12</p>
-              </div>
-              <div class="log-btn">
-                <a href="#"><button>View</button></a>
-              </div>
-            </div>
-            <div class="log">
-              <div class="log-name">
-                <h3>Room TV 2021</h3>
-                <p>John . 2025/14/12</p>
-              </div>
-              <div class="log-btn">
-                <a href="#"><button>View</button></a>
-              </div>
-            </div>
-          </div>
+            <% }) %>
+          <% } else { %>
+            <p>No logs available</p>
+          <% } %>
+
+
         </div>
       </div>
     </div>

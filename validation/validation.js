@@ -21,6 +21,7 @@ export const signupValidation = loginValidation
 export const userLogsValidation = z.object({
   date: z.string().trim().nonempty({ message: "Date is required" }),
   time: z.string().trim().nonempty({ message: "Time is required" }),
+  report: z.string().trim().nonempty({ message: "Report field is required" }),
   location: z
     .string()
     .trim()

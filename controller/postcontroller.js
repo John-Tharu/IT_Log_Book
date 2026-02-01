@@ -87,7 +87,7 @@ export const addlog = async (req, res) => {
 
   // console.log(data);
 
-  const { date, time, location, description, action, status } = data;
+  const { date, time, report, location, description, action, status } = data;
 
   const capitalLocation = location.charAt(0).toUpperCase() + location.slice(1);
 
@@ -95,6 +95,8 @@ export const addlog = async (req, res) => {
     description.charAt(0).toUpperCase() + description.slice(1);
 
   const captalAction = action.charAt(0).toUpperCase() + action.slice(1);
+
+  const capitalReport = report.charAt(0).toUpperCase() + report.slice(1);
 
   const userId = 1;
 
@@ -105,6 +107,7 @@ export const addlog = async (req, res) => {
   const logs = await addLogs({
     date,
     time,
+    reportedBy: capitalReport,
     location: capitalLocation,
     description: captalDescription,
     action: captalAction,
@@ -120,5 +123,5 @@ export const addlog = async (req, res) => {
     return res.redirect("/addlog");
   }
 
-  res.redirect("/addlog");
+  res.redirect("/");
 };

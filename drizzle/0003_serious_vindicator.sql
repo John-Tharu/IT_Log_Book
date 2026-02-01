@@ -1,0 +1,1 @@
+ALTER TABLE `user_logs` ADD `reported_by` varchar(255) NOT NULL;

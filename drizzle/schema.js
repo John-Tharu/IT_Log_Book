@@ -17,6 +17,7 @@ export const userLogs = mysqlTable("user_logs", {
   id: int().autoincrement().primaryKey(),
   date: varchar("date", { length: 255 }).notNull(),
   time: varchar("time", { length: 255 }).notNull(),
+  reportedBy: varchar("reported_by", { length: 255 }).notNull(),
   location: varchar("issue_location", { length: 255 }).notNull(),
   description: varchar("issue_description", { length: 255 }).notNull(),
   action: varchar("action_taken", { length: 255 }).notNull(),

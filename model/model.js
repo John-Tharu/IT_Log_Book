@@ -26,6 +26,7 @@ export const checkPass = async (pass, hash) => {
 export const addLogs = async ({
   date,
   time,
+  reportedBy,
   location,
   description,
   action,
@@ -38,6 +39,7 @@ export const addLogs = async ({
     .values({
       date,
       time,
+      reportedBy,
       location,
       description,
       action,
@@ -50,6 +52,10 @@ export const addLogs = async ({
 
 export const getUserLogs = () => {
   return db.select().from(userLogs).orderBy(desc(userLogs.id));
+};
+
+export const getLogs = (id) => {
+  return db.select().from(userLogs).where(eq(userLogs.id, id));
 };
 
 export const getUserPendingLogs = () => {
@@ -74,4 +80,8 @@ export const getSolvedLogs = () => {
     .from(userLogs)
     .where(eq(userLogs.status, "Solved"))
     .orderBy(desc(userLogs.id));
+};
+
+export const getUserById = (id) => {
+  return db.select().from(userTable).where(eq(userTable.id, id));
 };

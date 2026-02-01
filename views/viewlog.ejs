@@ -27,29 +27,35 @@
           >
         </div>
       </div>
-      <div class="ticket-card">
+      <div
+        class="ticket-card <%= viewLog.status === 'Solved' ? 'green' : 'orange' %>"
+      >
         <div class="ticket-header">
-          <div class="ticket-title">Printer Jam</div>
-          <div class="ticket-date">2025-14-12</div>
+          <div class="ticket-title"><%= viewLog.description %></div>
+          <div class="ticket-date">
+            <%= viewLog.date %> | <%= viewLog.time %>
+          </div>
         </div>
 
         <div class="ticket-info">
           <div class="info-box">
             <span>Reported By</span>
-            John
+            <%= viewLog.reportedBy %>
           </div>
           <div class="info-box">
             <span>Location</span>
-            Room No 2021
+            <%= viewLog.location %>
           </div>
         </div>
 
-        <div class="status">Solved By John</div>
+        <%  if(viewLog.status === 'Solved'){ %>
+          <div class="status"><i class="fa-solid fa-circle-check"></i> Solved By <%= name %></div>
+       <% } else{
+          %>
+          <a href="#"><div class="working"><i class="fa-solid fa-clock"></i>  <%= viewLog.status %></div></a>
+      <% } %>
         <div class="action-title">Action Taken</div>
-        <div class="action-text">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eligendi aperiam, hic praesentium quisquam explicabo natus numquam perspiciatis expedita placeat, qui incidunt facere assumenda dolorum similique deserunt. Voluptate incidunt sunt cupiditate?
-          Aperiam laborum, commodi officiis repudiandae quisquam illum, consequatur, vitae officia rem veritatis similique mollitia temporibus eligendi enim quidem? Et ipsam quam magni quasi deleniti esse. Illum tempore tenetur voluptatibus nam?
-        </div>
+        <div class="action-text"><%= viewLog.action %></div>
       </div>
     </div>
   </body>

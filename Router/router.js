@@ -24,6 +24,6 @@ router.route("/addlog").get(addlogpage).post(addlog);
 
 router.route("/loglist/:list").get(loglistpage);
 
-router.route("/viewlog").get(viewlogpage);
+router.route("/viewlog/:id").get(viewlogpage);
 
 export const routerdata = router;

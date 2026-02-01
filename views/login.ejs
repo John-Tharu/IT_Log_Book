@@ -14,7 +14,7 @@
     <div class="container">
       <div class="wrapper">
         <div class="title"><span>Login</span></div>
-        <form action="/login" method="post">
+        <form action="/login" id="myForm" method="post">
           <% if(msg && msg.length > 0){ %>
           <div class="row">
             <p class="error"><%= msg %></p>
@@ -53,11 +53,15 @@
     </div>
   </body>
   <script>
-    window.addEventListener("pageshow", function (event) {
-      if (event.persisted) {
-        window.location.reload();
-      }
+    const form = document.getElementById("myForm");
+
+    form.addEventListener("submit", () => {
+      setTimeout(() => {
+        form.reset();
+      }, 0);
     });
+
+
     const eye = document.querySelector(".fa-eye");
     const password = document.querySelector("input[type=password]");
     eye.addEventListener("click", () => {

@@ -13,7 +13,7 @@
   <body>
     <div class="wrapper">
       <div class="title"><span>Signup</span></div>
-      <form action="#" method="post">
+      <form action="#" id="myForm" method="post">
         <% if(msg && msg.length > 0){ %>
           <div class="row">
           <p class="error"><%= msg %></p>
@@ -64,11 +64,13 @@
     </div>
   </body>
   <script>
-    window.addEventListener("pageshow", function (event) {
-    if (event.persisted) {
-      window.location.reload();
-    }
-  });
+    const form = document.getElementById("myForm");
+
+    form.addEventListener("submit", () => {
+      setTimeout(() => {
+        form.reset();
+      }, 0);
+    });
 
     function togglePassword(eyeIcon, inputId) {
       const input = document.getElementById(inputId);
