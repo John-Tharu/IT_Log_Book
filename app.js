@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 import { routerdata } from "./Router/router.js";
 import session from "express-session";
 import flash from "express-flash";
+import cookieParser from "cookie-parser";
+import { verifyJWT } from "./middleware/middleware.js";
 
 dotenv.config();
 
@@ -20,6 +22,15 @@ app.use(
   }),
 );
 
+app.use(cookieParser());
+
+app.use(verifyJWT);
+
+app.use((req, res, next) => {
+  res.locals.user = req.user;
+  next();
+});
+
 app.use(flash());
 
 app.use(routerdata);
@@ -27,6 +38,10 @@ app.use(routerdata);
 app.use(express.static("public"));
 
 app.set("view engine", "ejs");
+
+app.use((req, res) => {
+  res.redirect("/404");
+});
 
 app.listen(process.env.PORT, () => {
   console.log("Server is running on port", process.env.PORT);

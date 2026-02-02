@@ -2,6 +2,10 @@ import { desc, eq, sql } from "drizzle-orm";
 import { db } from "../config/db.js";
 import { userLogs, userTable } from "../drizzle/schema.js";
 import argon2 from "argon2";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export const checkemail = async (email) => {
   return await db.select().from(userTable).where(eq(userTable.email, email));
@@ -84,4 +88,14 @@ export const getSolvedLogs = () => {
 
 export const getUserById = (id) => {
   return db.select().from(userTable).where(eq(userTable.id, id));
+};
+
+export const generateToken = ({ id, name, email }) => {
+  return jwt.sign({ id, name, email }, process.env.JWT_SECRET_KEY, {
+    expiresIn: "1d",
+  });
+};
+
+export const verifyToken = (token) => {
+  return jwt.verify(token, process.env.JWT_SECRET_KEY);
 };

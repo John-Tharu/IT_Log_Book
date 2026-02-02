@@ -25,6 +25,9 @@ nav {
   color: #fff;
   font-size: 20px;
 }
+.heading h2 {
+  font-size: clamp(0.5rem, 6vw, 2rem);
+}
 .slidebar {
   position: fixed;
   top: 0;
@@ -337,6 +340,23 @@ nav {
   background: #f8f9fb;
   padding: 14px;
   border-radius: 10px;
+}
+.not-found {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: calc(100vh - 25vh);
+}
+.not-found h1 {
+  font-size: clamp(6rem, 12vw, 18rem);
+  line-height: 1;
+  color: #16a085;
+}
+.not-found p {
+  font-size: 20px;
+  color: #16a085;
 }
 @media only screen and (max-width: 1000px) {
   nav {

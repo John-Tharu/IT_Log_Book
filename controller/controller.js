@@ -8,10 +8,12 @@ import {
 } from "../model/model.js";
 
 export const loginpage = (req, res) => {
+  if (req.user) return res.redirect("/");
   res.render("login", { msg: req.flash("error") });
 };
 
 export const signuppage = (req, res) => {
+  if (req.user) return res.redirect("/");
   res.set({
     "Cache-Control": "no-store, no-cache, must-revalidate, private",
     Pragma: "no-cache",
@@ -25,13 +27,15 @@ export const forgetpage = (req, res) => {
 };
 
 export const addlogpage = (req, res) => {
+  if (!req.user) return res.redirect("/login");
   res.render("addlog", { msg: req.flash("error") });
 };
 
 export const dashboardpage = async (req, res) => {
+  if (!req.user) return res.redirect("/login");
   const userLog = await getUserLogs();
 
-  console.log(userLog);
+  // console.log(userLog);
 
   const userPendingLog = await getUserPendingLogs();
 
@@ -50,6 +54,7 @@ export const dashboardpage = async (req, res) => {
 };
 
 export const loglistpage = async (req, res) => {
+  if (!req.user) return res.redirect("/login");
   const list = req.params.list;
 
   const titles = {
@@ -107,6 +112,7 @@ export const loglistpage = async (req, res) => {
 };
 
 export const viewlogpage = async (req, res) => {
+  if (!req.user) return res.redirect("/login");
   const id = req.params.id;
 
   const [viewLog] = await getLogs(id);
@@ -123,4 +129,8 @@ export const viewlogpage = async (req, res) => {
   // console.log(user);
 
   res.render("viewlog", { viewLog, name: user.name });
+};
+
+export const page404 = (req, res) => {
+  res.render("404");
 };

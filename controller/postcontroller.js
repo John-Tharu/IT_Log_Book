@@ -4,6 +4,7 @@ import {
   checkEmail,
   checkemail,
   checkPass,
+  generateToken,
   hashpass,
 } from "../model/model.js";
 import {
@@ -64,15 +65,23 @@ export const login = async (req, res) => {
 
   if (!user) {
     req.flash("error", "Please check username or password");
-    res.redirect("/login");
+    return res.redirect("/login");
   }
 
   const checkedPass = await checkPass(pass, user.pass);
 
   if (!checkedPass) {
     req.flash("error", "Please check username or password");
-    res.redirect("/login");
+    return res.redirect("/login");
   }
+
+  const token = generateToken({
+    id: user.id,
+    name: user.name,
+    email: user.email,
+  });
+
+  res.cookie("access_token", token);
 
   res.redirect("/");
 };
