@@ -33,6 +33,11 @@ app.use((req, res, next) => {
 
 app.use(flash());
 
+app.use((req, res, next) => {
+  res.locals.user = req.user;
+  return next();
+});
+
 app.use(routerdata);
 
 app.use(express.static("public"));

@@ -14,7 +14,9 @@
           <a href="/"><i class="fa-solid fa-house"></i> Dashboard</a>
         </li>
         <li>
-          <a href="/addlog"><i class="fa-solid fa-book-open"></i> Add Log</a>
+          <% if(user){ %>
+            <a href="/profile"><i class="fa-solid fa-circle-user"></i> <%= user.name %></a>
+          <% } %>
         </li>
         <li>
           <a href="/logout">
@@ -31,7 +33,9 @@
           <a href="/"><i class="fa-solid fa-house"></i> Dashboard</a>
         </li>
         <li class="active">
-          <a href="/addlog"><i class="fa-solid fa-book-open"></i> Add Log</a>
+          <% if(user){ %>
+            <a href="/profile"><i class="fa-solid fa-circle-user"></i> <%= user.name %></a>
+          <% } %>
         </li>
         <li class="active">
           <a href="/logout">

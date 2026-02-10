@@ -1,20 +1,24 @@
 import { verifyToken } from "../model/model.js";
 
 export const verifyJWT = (req, res, next) => {
-  const token = req.cookies.access_token;
+  let token = req.cookies.access_token;
 
   if (!token) {
-    req.use = null;
+    req.user = null;
     return next();
+  }
+
+  if (token.startsWith("Bearer ")) {
+    token = token.split(" ")[1];
   }
 
   try {
     const decodedToken = verifyToken(token);
     req.user = decodedToken;
-    // console.log(req.user);
   } catch (error) {
+    console.log("JWT ERROR:", error.message);
     req.user = null;
   }
 
-  return next();
+  next();
 };

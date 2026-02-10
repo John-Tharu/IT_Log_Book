@@ -59,7 +59,23 @@ export const getUserLogs = () => {
 };
 
 export const getLogs = (id) => {
-  return db.select().from(userLogs).where(eq(userLogs.id, id));
+  return db
+    .select({
+      id: userLogs.id,
+      date: userLogs.date,
+      time: userLogs.time,
+      reportedBy: userLogs.reportedBy,
+      location: userLogs.location,
+      description: userLogs.description,
+      action: userLogs.action,
+      status: userLogs.status,
+      solvedBy: userLogs.solvedBy,
+      userName: userTable.name,
+      createdAt: userLogs.createdAt,
+    })
+    .from(userLogs)
+    .leftJoin(userTable, eq(userLogs.user_id, userTable.id))
+    .where(eq(userLogs.id, id));
 };
 
 export const getUserPendingLogs = () => {
@@ -91,6 +107,7 @@ export const getUserById = (id) => {
 };
 
 export const generateToken = ({ id, name, email }) => {
+  // console.log("JWT_SECRET_KEY:", process.env.JWT_SECRET_KEY);
   return jwt.sign({ id, name, email }, process.env.JWT_SECRET_KEY, {
     expiresIn: "1d",
   });
@@ -141,6 +158,15 @@ export const addAnotherAction = async ({ id, action, status, userId }) => {
 };
 
 export const getMessages = (id) => {
-  // console.log(id);
-  return db.select().from(actionTable).where(eq(actionTable.logId, id));
+  return db
+    .select({
+      id: actionTable.id,
+      action: actionTable.action,
+      createdAt: actionTable.createdAt,
+      userId: actionTable.userId,
+      userName: userTable.name,
+    })
+    .from(actionTable)
+    .leftJoin(userTable, eq(actionTable.userId, userTable.id))
+    .where(eq(actionTable.logId, id));
 };

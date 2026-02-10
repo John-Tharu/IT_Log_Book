@@ -5,36 +5,8 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1769300180851,
-      "tag": "0000_typical_peter_parker",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1769809140070,
-      "tag": "0001_fresh_ben_grimm",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "5",
-      "when": 1769812516298,
-      "tag": "0002_flimsy_miss_america",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "5",
-      "when": 1769894734229,
-      "tag": "0003_serious_vindicator",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "5",
-      "when": 1770679378812,
-      "tag": "0004_fancy_thunderbird",
+      "when": 1770759556536,
+      "tag": "0000_cloudy_darkhawk",
       "breakpoints": true
     }
   ]

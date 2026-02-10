@@ -60,24 +60,51 @@
               <a href="/anotherAction/<%= viewLog.id %>"><div class="working"><i class="fa-solid fa-clock"></i>  <%= viewLog.status %></div></a>
           <% } %>
             <div class="action-title">Action Taken</div>
-            <div class="action-text"><%= viewLog.action %></div>
+            <div class="action-text"><%= viewLog.action %>
+              <p style="text-align: right;">- <%= (viewLog.userName).split(' ')[0] %> | <%
+                  // Get Nepal time from createdAt
+                  const nepalDate = new Date(viewLog.createdAt.toLocaleString("en-US", { timeZone: "Asia/Kathmandu" }));
+
+                  // Subtract 5 hours 45 minutes
+                  const offsetMinutes = 5 * 60 + 45; // 345 minutes
+                  const shiftedTime = new Date(nepalDate.getTime() - offsetMinutes * 60 * 1000);
+
+                  // Format date and time
+                  const year = shiftedTime.getFullYear();
+                  const month = (shiftedTime.getMonth() + 1).toString().padStart(2, "0");
+                  const day = shiftedTime.getDate().toString().padStart(2, "0");
+                  const hours = shiftedTime.getHours().toString().padStart(2, "0");
+                  const minutes = shiftedTime.getMinutes().toString().padStart(2, "0");
+                  const seconds = shiftedTime.getSeconds().toString().padStart(2, "0");
+                %>
+
+                <%= `${year}-${month}-${day} ${hours}:${minutes}:${seconds}` %>
+                </p>  
+            </div>
                 <% if(messageLog && messageLog.length > 0){
                   messageLog.forEach((message) =>{
                     %>
                     <div class="action-text"><%= message.action %>
-                      <p style="text-align: right;">- Manik | <%= new Date(message.createdAt).toLocaleString('en-GB', {
-                          year: 'numeric',
-                          month: 'short',
-                          day: 'numeric',
-                          hour: '2-digit',
-                          minute: '2-digit',
-                          second: '2-digit',
-                          hour12: false
-                        }) %>
+                      <p style="text-align: right;">- <%= (message.userName).split(' ')[0] %> | <%
+                            // Get Nepal time from createdAt
+                            const nepalDate = new Date(message.createdAt.toLocaleString("en-US", { timeZone: "Asia/Kathmandu" }));
 
+                            // Subtract 5 hours 45 minutes
+                            const offsetMinutes = 5 * 60 + 45; // 345 minutes
+                            const shiftedTime = new Date(nepalDate.getTime() - offsetMinutes * 60 * 1000);
+
+                            // Format date and time
+                            const year = shiftedTime.getFullYear();
+                            const month = (shiftedTime.getMonth() + 1).toString().padStart(2, "0");
+                            const day = shiftedTime.getDate().toString().padStart(2, "0");
+                            const hours = shiftedTime.getHours().toString().padStart(2, "0");
+                            const minutes = shiftedTime.getMinutes().toString().padStart(2, "0");
+                            const seconds = shiftedTime.getSeconds().toString().padStart(2, "0");
+                          %>
+
+                          <%= `${year}-${month}-${day} ${hours}:${minutes}:${seconds}` %>
                         </p>
                     </div>
-                    
                     <%
                   })
                 } %>

@@ -84,7 +84,13 @@ export const login = async (req, res) => {
     email: user.email,
   });
 
-  res.cookie("access_token", token);
+  // console.log(token);
+
+  res.cookie("access_token", token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+  });
 
   res.redirect("/");
 };
