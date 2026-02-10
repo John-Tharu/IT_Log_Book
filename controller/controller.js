@@ -1,5 +1,6 @@
 import {
   getLogs,
+  getMessages,
   getSolvedLogs,
   getThisWeekLog,
   getUserById,
@@ -114,23 +115,76 @@ export const loglistpage = async (req, res) => {
 export const viewlogpage = async (req, res) => {
   if (!req.user) return res.redirect("/login");
   const id = req.params.id;
+  // console.log(id);
 
   const [viewLog] = await getLogs(id);
   // console.log(viewLog);
 
+  const messageLog = await getMessages(id);
+
+  // console.log(messageLog);
+
   const solvedBy = viewLog.solvedBy;
 
   if (!solvedBy) {
-    return res.render("viewlog", { viewLog });
+    return res.render("viewlog", { viewLog, messageLog });
   }
 
   const [user] = await getUserById(solvedBy);
 
   // console.log(user);
 
-  res.render("viewlog", { viewLog, name: user.name });
+  res.render("viewlog", { viewLog, name: user.name, messageLog });
 };
 
 export const page404 = (req, res) => {
   res.render("404");
+};
+
+export const editpage = async (req, res) => {
+  if (!req.user) return res.redirect("/login");
+
+  const id = req.params.id;
+
+  const [log] = await getLogs(id);
+
+  // console.log(log);
+
+  if (!log) return res.redirect("/404");
+
+  const { date, time, reportedBy, location, description, action, status } = log;
+
+  res.render("edit", {
+    id,
+    date,
+    time,
+    reportedBy,
+    location,
+    description,
+    action,
+    status,
+    msg: req.flash("error"),
+  });
+};
+
+export const logout = async (req, res) => {
+  // console.log(req.user.sessionId);
+  // await clearUserSession(req.user.sessionId);
+  res.clearCookie("access_token");
+  // res.clearCookie("refresh_token");
+  res.redirect("/");
+};
+
+export const anotherAction = async (req, res) => {
+  if (!req.user) return res.redirect("/login");
+
+  const id = req.params.id;
+
+  const [log] = await getLogs(id);
+
+  if (!log) return res.redirect("/404");
+
+  const { status } = log;
+
+  res.render("anotherAction", { msg: req.flash("error"), id, status });
 };

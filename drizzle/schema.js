@@ -29,3 +29,19 @@ export const userLogs = mysqlTable("user_logs", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull().onUpdateNow(),
 });
+
+export const actionTable = mysqlTable("actions_table", {
+  id: int().autoincrement().primaryKey(),
+
+  logId: int("log_id")
+    .notNull()
+    .references(() => userLogs.id, { onDelete: "cascade" }),
+
+  action: varchar("action", { length: 100 }).notNull(),
+
+  userId: int("user_id")
+    .notNull()
+    .references(() => userTable.id),
+
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});

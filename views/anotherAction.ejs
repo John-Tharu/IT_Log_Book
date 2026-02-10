@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Another Action | Log Book</title>
+    <link rel="stylesheet" href="/style.css" />
+    <script
+      src="https://kit.fontawesome.com/bb7a749298.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="title"><span>Another Action</span></div>
+      <form id="myForm" action="/anotheraction/<%= id %>" method="post">
+        <% if(msg && msg.length > 0){ %>
+          <div class="row">
+            <p class="error"><%= msg %></p>
+          </div>
+          <%  } %>
+        <div class="rows">
+          <label for="">Action Taken By You</label>
+          <textarea name="action" rows="3" id="action"></textarea>
+        </div>
+        <div class="rows">
+          <label for="">Status</label>
+            <select name="status" id="status">
+                <option value="">----- Select ------</option>
+                <option value="Solved" <%= status === "Solved" ? "selected" : "" %>>
+                    Solved
+                </option>
+                <option value="Pending" <%= status === "Pending" ? "selected" : "" %>>
+                    Pending
+                </option>
+            </select>
+
+        </div>
+        <div class="row button">
+          <input type="submit" value="Submit" />
+        </div>
+      </form>
+    </div>
+  </body>
+  <script>
+  const form = document.getElementById("myForm");
+
+    form.addEventListener("submit", () => {
+      setTimeout(() => {
+        form.reset();
+      }, 0);
+    });
+</script>
+</html>

@@ -29,6 +29,13 @@
       "when": 1769894734229,
       "tag": "0003_serious_vindicator",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1770679378812,
+      "tag": "0004_fancy_thunderbird",
+      "breakpoints": true
     }
   ]
 }

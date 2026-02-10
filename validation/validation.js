@@ -35,3 +35,10 @@ export const userLogsValidation = z.object({
     required_error: "Status is required",
   }),
 });
+
+export const anotherMessageValidation = z.object({
+  action: z.string().trim().nonempty({ message: "Action field is required" }),
+  status: z.enum(["Pending", "Solved"], {
+    required_error: "Status is required",
+  }),
+});

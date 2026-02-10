@@ -1,6 +1,6 @@
 import { desc, eq, sql } from "drizzle-orm";
 import { db } from "../config/db.js";
-import { userLogs, userTable } from "../drizzle/schema.js";
+import { actionTable, userLogs, userTable } from "../drizzle/schema.js";
 import argon2 from "argon2";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
@@ -98,4 +98,49 @@ export const generateToken = ({ id, name, email }) => {
 
 export const verifyToken = (token) => {
   return jwt.verify(token, process.env.JWT_SECRET_KEY);
+};
+
+export const editLogs = ({
+  id,
+  date,
+  time,
+  reportedBy,
+  location,
+  description,
+  action,
+  status,
+  userId,
+  solvedBy,
+}) => {
+  return db
+    .update(userLogs)
+    .set({
+      date,
+      time,
+      reportedBy,
+      location,
+      description,
+      action,
+      status,
+      user_id: userId,
+      solvedBy,
+    })
+    .where(eq(userLogs.id, id));
+};
+
+export const addAnotherAction = async ({ id, action, status, userId }) => {
+  // console.log(id, action, status, userId);
+  await db.transaction(async (tx) => {
+    await tx.insert(actionTable).values({ logId: id, action, userId });
+
+    await tx
+      .update(userLogs)
+      .set({ status, solvedBy: userId })
+      .where(eq(userLogs.id, id));
+  });
+};
+
+export const getMessages = (id) => {
+  // console.log(id);
+  return db.select().from(actionTable).where(eq(actionTable.logId, id));
 };

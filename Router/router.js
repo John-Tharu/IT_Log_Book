@@ -1,15 +1,24 @@
 import { Router } from "express";
 import {
   addlogpage,
+  anotherAction,
   dashboardpage,
+  editpage,
   forgetpage,
   loginpage,
   loglistpage,
+  logout,
   page404,
   signuppage,
   viewlogpage,
 } from "../controller/controller.js";
-import { addlog, login, signup } from "../controller/postcontroller.js";
+import {
+  addlog,
+  anotherMessage,
+  editLog,
+  login,
+  signup,
+} from "../controller/postcontroller.js";
 
 const router = Router();
 
@@ -28,5 +37,11 @@ router.route("/loglist/:list").get(loglistpage);
 router.route("/viewlog/:id").get(viewlogpage);
 
 router.route("/404").get(page404);
+
+router.route("/edit/:id").get(editpage).post(editLog);
+
+router.route("/logout").get(logout);
+
+router.route("/anotheraction/:id").get(anotherAction).post(anotherMessage);
 
 export const routerdata = router;

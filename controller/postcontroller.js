@@ -1,13 +1,16 @@
 import {
+  addAnotherAction,
   addLogs,
   addUser,
   checkEmail,
   checkemail,
   checkPass,
+  editLogs,
   generateToken,
   hashpass,
 } from "../model/model.js";
 import {
+  anotherMessageValidation,
   loginValidation,
   signupValidation,
   userLogsValidation,
@@ -107,7 +110,7 @@ export const addlog = async (req, res) => {
 
   const capitalReport = report.charAt(0).toUpperCase() + report.slice(1);
 
-  const userId = 1;
+  const userId = req.user.id;
 
   const solvedBy = status === "Solved" ? userId : null;
 
@@ -133,4 +136,88 @@ export const addlog = async (req, res) => {
   }
 
   res.redirect("/");
+};
+
+export const editLog = async (req, res) => {
+  if (!req.user) return res.redirect("/login");
+
+  const id = req.params.id;
+
+  const { data, error } = userLogsValidation.safeParse(req.body);
+
+  if (error) {
+    req.flash("error", error.errors[0].message);
+    return res.redirect(`/edit/${id}`);
+  }
+
+  const { date, time, report, location, description, action, status } = data;
+
+  const capitalLocation = location.charAt(0).toUpperCase() + location.slice(1);
+
+  const captalDescription =
+    description.charAt(0).toUpperCase() + description.slice(1);
+
+  const captalAction = action.charAt(0).toUpperCase() + action.slice(1);
+
+  const capitalReport = report.charAt(0).toUpperCase() + report.slice(1);
+
+  const userId = req.user.id;
+
+  const solvedBy = status === "Solved" ? userId : null;
+
+  // console.log(solvedBy);
+
+  const logs = await editLogs({
+    id,
+    date,
+    time,
+    reportedBy: capitalReport,
+    location: capitalLocation,
+    description: captalDescription,
+    action: captalAction,
+    status,
+    userId,
+    solvedBy,
+  });
+
+  console.log(logs);
+
+  if (!logs) {
+    req.flash("error", "Something went wrong");
+    return res.redirect(`/edit/${id}`);
+  }
+
+  res.redirect("/");
+};
+
+export const anotherMessage = async (req, res) => {
+  if (!req.user) return res.redirect("/login");
+
+  const id = req.params.id;
+
+  const userId = req.user.id;
+
+  const { data, error } = anotherMessageValidation.safeParse(req.body);
+
+  if (error) {
+    req.flash("error", error.errors[0].message);
+    return res.redirect(`/anotherAction/${id}`);
+  }
+
+  const { action, status } = data;
+
+  // console.log(data);
+
+  const captalAction = action.charAt(0).toUpperCase() + action.slice(1);
+
+  const logs = await addAnotherAction({
+    id,
+    action: captalAction,
+    status,
+    userId,
+  });
+
+  // console.log(logs);
+
+  res.redirect(`/viewlog/${id}`);
 };
