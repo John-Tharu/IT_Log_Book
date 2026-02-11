@@ -9,6 +9,7 @@ import {
   loglistpage,
   logout,
   page404,
+  profilePage,
   signuppage,
   viewlogpage,
 } from "../controller/controller.js";
@@ -43,5 +44,7 @@ router.route("/edit/:id").get(editpage).post(editLog);
 router.route("/logout").get(logout);
 
 router.route("/anotheraction/:id").get(anotherAction).post(anotherMessage);
+
+router.route("/profile/:id").get(profilePage);
 
 export const routerdata = router;

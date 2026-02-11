@@ -28,7 +28,7 @@ CREATE TABLE `users_table` (
 	`email` varchar(255) NOT NULL,
 	`name` varchar(255) NOT NULL,
 	`pass` varchar(255) NOT NULL,
-	`isEmailValid` varchar(255) NOT NULL DEFAULT 'false',
+	`is_email_valid` boolean NOT NULL DEFAULT false,
 	`role` varchar(255) NOT NULL DEFAULT 'User',
 	`created_at` timestamp NOT NULL DEFAULT (now()),
 	`updated_at` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,

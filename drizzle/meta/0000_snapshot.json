@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "ebd51fb4-fa6c-41c0-b98b-82e14c2ce3d9",
+  "id": "0a5fdeb9-2425-4228-a6aa-643258a4e941",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "actions_table": {
@@ -246,13 +246,13 @@
           "notNull": true,
           "autoincrement": false
         },
-        "isEmailValid": {
-          "name": "isEmailValid",
-          "type": "varchar(255)",
+        "is_email_valid": {
+          "name": "is_email_valid",
+          "type": "boolean",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "'false'"
+          "default": false
         },
         "role": {
           "name": "role",

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard | Log Book</title>
+    <link rel="stylesheet" href="/dashboard.css" />
+    <script
+      src="https://kit.fontawesome.com/bb7a749298.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <%- include('partials/navbar') %>
+    <div class="container">
+      <div class="profile-box">
+        <div class="profile">
+          <div class="profile-img">
+            <img src="/profile.svg" alt="" />
+          </div>
+          <div class="profile-detail">
+            <h2><%= user.name %></h2>
+            <p><%= user.email %></p>
+
+            <!-- Verify Email -->
+                <div class="verify-email">
+                    <% if (user.isEmailValid) { %>
+                    <div class="alert success">
+            ✅ Your email has been successfully Verified!
+            </div>
+                    <% } else { %>
+                    <div class="alert warning">
+                    ⚠️ Your email is not Verified. Click the link to verify your email. <a href="/verify-email">Click here</a>
+                </div>
+                    <% } %>
+                </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

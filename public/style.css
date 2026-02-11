@@ -51,7 +51,7 @@ body {
   outline: none;
   border-radius: 5px;
   border: 1px solid lightgrey;
-  font-size: 16px;
+  font-size: 14px;
 }
 .wrapper form .row i {
   position: absolute;
@@ -122,7 +122,7 @@ body {
   padding: 10px;
   border-radius: 5px;
   border: 1px solid lightgrey;
-  font-size: 16px;
+  font-size: 14px;
   outline: none;
 }
 .wrapper form .date-time {

@@ -188,3 +188,13 @@ export const anotherAction = async (req, res) => {
 
   res.render("anotherAction", { msg: req.flash("error"), id, status });
 };
+
+export const profilePage = async (req, res) => {
+  if (!req.user) return res.redirect("/login");
+
+  const id = req.user.id;
+
+  const [user] = await getUserById(id);
+
+  res.render("profile", { user });
+};
