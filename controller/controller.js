@@ -1,4 +1,6 @@
 import {
+  clearVerifyEmailTokens,
+  findVerificationEmailToken,
   getLogs,
   getMessages,
   getSolvedLogs,
@@ -6,7 +8,9 @@ import {
   getUserById,
   getUserLogs,
   getUserPendingLogs,
+  verifyUserEmailAndUpdate,
 } from "../model/model.js";
+import { verifyEmailSchema } from "../validation/validation.js";
 
 export const loginpage = (req, res) => {
   if (req.user) return res.redirect("/");
@@ -197,4 +201,40 @@ export const profilePage = async (req, res) => {
   const [user] = await getUserById(id);
 
   res.render("profile", { user });
+};
+
+export const verifyEmailPage = (req, res) => {
+  if (!req.user) return res.redirect("/login");
+
+  const userId = req.user.id;
+
+  const user = getUserById(userId);
+
+  if (!user || user.isEmailValid) return res.redirect("/login");
+
+  res.render("verify_email");
+};
+
+export const verifyEmailToken = async (req, res) => {
+  const { data, error } = verifyEmailSchema.safeParse(req.query);
+
+  if (error) {
+    return res.send("Verification Link Expired");
+  }
+
+  // console.log(data);
+
+  const token = await findVerificationEmailToken(data);
+
+  // console.log(token);
+
+  if (!token) {
+    return res.send("Verification Link Expired");
+  }
+
+  await verifyUserEmailAndUpdate(token.email);
+
+  clearVerifyEmailTokens(token.email);
+
+  res.redirect("/profile");
 };

@@ -42,3 +42,8 @@ export const anotherMessageValidation = z.object({
     required_error: "Status is required",
   }),
 });
+
+export const verifyEmailSchema = z.object({
+  token: z.string().trim().nonempty({ message: "Token is required" }).length(8),
+  email: z.string().email({ message: "Enter Valid Email Address" }).trim(),
+});

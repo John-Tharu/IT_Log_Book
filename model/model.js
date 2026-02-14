@@ -1,9 +1,15 @@
-import { desc, eq, sql } from "drizzle-orm";
+import { and, desc, eq, gte, lt, sql } from "drizzle-orm";
 import { db } from "../config/db.js";
-import { actionTable, userLogs, userTable } from "../drizzle/schema.js";
+import {
+  actionTable,
+  userLogs,
+  userTable,
+  verifyEmailTokenTable,
+} from "../drizzle/schema.js";
 import argon2 from "argon2";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import crypto from "crypto";
 
 dotenv.config();
 
@@ -106,11 +112,15 @@ export const getUserById = (id) => {
   return db.select().from(userTable).where(eq(userTable.id, id));
 };
 
-export const generateToken = ({ id, name, email }) => {
+export const generateToken = ({ id, name, email, verifyEmail }) => {
   // console.log("JWT_SECRET_KEY:", process.env.JWT_SECRET_KEY);
-  return jwt.sign({ id, name, email }, process.env.JWT_SECRET_KEY, {
-    expiresIn: "1d",
-  });
+  return jwt.sign(
+    { id, name, email, verifyEmail },
+    process.env.JWT_SECRET_KEY,
+    {
+      expiresIn: "1d",
+    },
+  );
 };
 
 export const verifyToken = (token) => {
@@ -169,4 +179,106 @@ export const getMessages = (id) => {
     .from(actionTable)
     .leftJoin(userTable, eq(actionTable.userId, userTable.id))
     .where(eq(actionTable.logId, id));
+};
+
+export const generateRandomToken = async (digit = 8) => {
+  const min = 10 ** (digit - 1);
+
+  const max = 10 ** digit;
+
+  return crypto.randomInt(min, max).toString();
+};
+
+export const insertVerifyEmailToken = async ({ userId, token }) => {
+  return db.transaction(async (tx) => {
+    try {
+      //Delete Expired Token
+      await tx
+        .delete(verifyEmailTokenTable)
+        .where(lt(verifyEmailTokenTable.expiresAt, sql`CURRENT_TIMESTAMP`));
+
+      //Delete User Token
+      await tx
+        .delete(verifyEmailTokenTable)
+        .where(eq(verifyEmailTokenTable.userId, userId));
+
+      //Insert New Token
+      await tx.insert(verifyEmailTokenTable).values({ userId, token });
+    } catch (error) {
+      console.log(error);
+    }
+  });
+};
+
+export const createVerifyEmailLink = ({ email, token }) => {
+  // const encodedEmail = encodeURIComponent(email);
+
+  // return `http://localhost:3000/verify-email-token?email=${encodedEmail}&token=${token}`;
+
+  const url = new URL(`${process.env.HOSTNAME}/verify-email-token`);
+
+  url.searchParams.set("email", email);
+  url.searchParams.set("token", token);
+
+  return url.toString();
+};
+
+export const findVerificationEmailToken = async ({ token, email }) => {
+  // console.log(`Token : ${token}`);
+  // console.log(`Email : ${email}`);
+  const tokenData = await db
+    .select({
+      userId: verifyEmailTokenTable.userId,
+      token: verifyEmailTokenTable.token,
+      expiresAt: verifyEmailTokenTable.expiresAt,
+    })
+    .from(verifyEmailTokenTable)
+    .where(
+      and(
+        eq(verifyEmailTokenTable.token, token),
+        gte(verifyEmailTokenTable.expiresAt, sql`CURRENT_TIMESTAMP`),
+      ),
+    );
+
+  if (tokenData.length === 0) return null;
+
+  // console.log(`Token data : ${tokenData}`);
+
+  const { userId } = tokenData[0];
+
+  // console.log(userId);
+
+  const userData = await db
+    .select()
+    .from(userTable)
+    .where(eq(userTable.id, userId));
+
+  // console.log(userData);
+
+  if (!userData.length) return null;
+
+  return {
+    userId: userData[0].userId,
+    email: userData[0].email,
+    token: tokenData[0].token,
+    expiresAt: tokenData[0].expiresAt,
+  };
+};
+
+export const verifyUserEmailAndUpdate = async (email) => {
+  return db
+    .update(userTable)
+    .set({ isEmailValid: true })
+    .where(eq(userTable.email, email));
+};
+
+export const clearVerifyEmailTokens = async (email) => {
+  const [user] = await db
+    .select()
+    .from(userTable)
+    .where(eq(userTable.email, email));
+
+  return await db
+    .delete(verifyEmailTokenTable)
+    .where(eq(verifyEmailTokenTable.userId, user.id));
 };

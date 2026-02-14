@@ -1,3 +1,4 @@
+import { sendEmail } from "../lib/nodemailer.js";
 import {
   addAnotherAction,
   addLogs,
@@ -5,9 +6,13 @@ import {
   checkEmail,
   checkemail,
   checkPass,
+  createVerifyEmailLink,
   editLogs,
+  generateRandomToken,
   generateToken,
+  getUserById,
   hashpass,
+  insertVerifyEmailToken,
 } from "../model/model.js";
 import {
   anotherMessageValidation,
@@ -82,6 +87,7 @@ export const login = async (req, res) => {
     id: user.id,
     name: user.name,
     email: user.email,
+    verifyEmail: user.isEmailValid,
   });
 
   // console.log(token);
@@ -226,4 +232,31 @@ export const anotherMessage = async (req, res) => {
   // console.log(logs);
 
   res.redirect(`/viewlog/${id}`);
+};
+
+export const resendVerificationLink = async (req, res) => {
+  if (!req.user) return res.redirect("/login");
+
+  const user = await getUserById(req.user.id);
+
+  if (!user || user.isEmailValid) return res.redirect("/login");
+
+  const randomToken = await generateRandomToken();
+
+  await insertVerifyEmailToken({ userId: req.user.id, token: randomToken });
+
+  const verifyEmailLink = createVerifyEmailLink({
+    email: req.user.email,
+    token: randomToken,
+  });
+
+  sendEmail({
+    to: req.user.email,
+    subject: "Verify Your Email Address",
+    html: `<h1>Click the link below to verify your email address</h1>
+    <p>You can use this token <code>${randomToken}</code></p>
+    <a href="${verifyEmailLink}">Verify Email</a>`,
+  }).catch((err) => console.log(err));
+
+  res.redirect("/verify-email");
 };

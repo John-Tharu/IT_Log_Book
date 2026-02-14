@@ -449,6 +449,64 @@ nav {
   padding: 20px;
   border-radius: 5px;
 }
+.verify_email_box {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.verify_email_box h1 {
+  text-align: center;
+}
+.email_box,
+.token_box {
+  margin: 0 auto;
+  width: 40%;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 5px;
+  margin: 20px;
+}
+.email_box p {
+  margin: 20px 0;
+  text-align: justify;
+}
+.email_box a {
+  color: #16a085;
+  text-decoration: none;
+}
+button {
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: 1px solid #16a085;
+  background: #16a085;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+button:hover {
+  background: #12876f;
+}
+.link_button {
+  text-align: right;
+}
+.token_box input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid lightgrey;
+  font-size: 14px;
+  outline: none;
+  margin-bottom: 20px;
+}
+/* Remove arrows */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 @media only screen and (max-width: 1000px) {
   nav {
     left: 0;
@@ -486,5 +544,9 @@ nav {
   }
   .slidebar {
     display: flex;
+  }
+  .email_box,
+  .token_box {
+    width: 100%;
   }
 }

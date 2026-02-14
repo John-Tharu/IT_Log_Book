@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard | Log Book</title>
+    <link rel="stylesheet" href="/dashboard.css" />
+    <script
+      src="https://kit.fontawesome.com/bb7a749298.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <%- include('partials/navbar') %>
+    <div class="container">
+      <div class="verify_email_box">
+        <h1>Verify Your Email</h1>
+        <div class="email_box">
+          <p>Email: <%= user.email %></p>
+          <p>
+            your email has not been verified yet, please verify your email by
+            entering the 8 digit code sent to your email or request new
+            verification code
+          </p>
+          <form action="/resend_verification_link" method="post">
+            <div class="link_button">
+              <button type="submit">Resend Verification Link</button>
+            </div>
+          </form>
+        </div>
+        <div class="token_box">
+          <form action="/verify-email-token" method="get">
+            <input
+              type="number"
+              name="token"
+              placeholder="Enter 8 digit code"
+              maxlength="8"
+              pattern="\d{8}"
+              id="token"
+              required
+            />
+            <div class="link_button">
+              <button>Verify Code</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

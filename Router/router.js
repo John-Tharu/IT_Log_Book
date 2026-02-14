@@ -11,6 +11,8 @@ import {
   page404,
   profilePage,
   signuppage,
+  verifyEmailPage,
+  verifyEmailToken,
   viewlogpage,
 } from "../controller/controller.js";
 import {
@@ -18,6 +20,7 @@ import {
   anotherMessage,
   editLog,
   login,
+  resendVerificationLink,
   signup,
 } from "../controller/postcontroller.js";
 
@@ -45,6 +48,12 @@ router.route("/logout").get(logout);
 
 router.route("/anotheraction/:id").get(anotherAction).post(anotherMessage);
 
-router.route("/profile/:id").get(profilePage);
+router.route("/profile").get(profilePage);
+
+router.route("/verify-email").get(verifyEmailPage);
+
+router.route("/resend_verification_link").post(resendVerificationLink);
+
+router.route("/verify-email-token").get(verifyEmailToken);
 
 export const routerdata = router;
