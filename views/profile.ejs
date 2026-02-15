@@ -13,27 +13,21 @@
   <body>
     <%- include('partials/navbar') %>
     <div class="container">
-      <div class="profile-box">
-        <div class="profile">
-          <div class="profile-img">
+      <div class="profile">
+        <div class="info">
+          <div class="profile-pic">
             <img src="/profile.svg" alt="" />
           </div>
-          <div class="profile-detail">
-            <h2><%= user.name %></h2>
-            <p><%= user.email %></p>
-
-            <!-- Verify Email -->
-                <div class="verify-email">
-                    <% if (user.isEmailValid) { %>
-                    <div class="alert success">
-            ✅ Your email has been successfully Verified!
-            </div>
-                    <% } else { %>
-                    <div class="alert warning">
-                    ⚠️ Your email is not Verified. Click the link to verify your email. <a href="/verify-email">Click here</a>
-                </div>
-                    <% } %>
-                </div>
+          <div class="profile-info">
+            <h1>John Tharu</h1>
+            <p>john@gmail.com</p>
+            <p>Account CreatedAt : 2023</p>
+          </div>
+        </div>
+        <div class="verify-part">
+          <div class="verify">
+            <p>Email Verification : Not verified</p>
+            <button>Verify Now</button>
           </div>
         </div>
       </div>

@@ -22,16 +22,15 @@ app.use(
   }),
 );
 
+app.use(flash());
+
 app.use(cookieParser());
 
+app.use(express.static("public"));
+
+app.set("view engine", "ejs");
+
 app.use(verifyJWT);
-
-app.use((req, res, next) => {
-  res.locals.user = req.user;
-  next();
-});
-
-app.use(flash());
 
 app.use((req, res, next) => {
   res.locals.user = req.user;
@@ -39,10 +38,6 @@ app.use((req, res, next) => {
 });
 
 app.use(routerdata);
-
-app.use(express.static("public"));
-
-app.set("view engine", "ejs");
 
 // app.use((req, res) => {
 //   res.redirect("/404");

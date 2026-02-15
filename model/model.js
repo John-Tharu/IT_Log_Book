@@ -10,6 +10,12 @@ import argon2 from "argon2";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import crypto from "crypto";
+import { sendEmail } from "../lib/nodemailer.js";
+import mjml2html from "mjml";
+import path from "path";
+import fs from "fs/promises";
+import ejs from "ejs";
+// import { sendEmail } from "../lib/resend-email.js";
 
 dotenv.config();
 
@@ -96,7 +102,11 @@ export const getThisWeekLog = () => {
   return db
     .select()
     .from(userLogs)
-    .where(sql`date >= CURDATE() - INTERVAL 7 DAY`)
+    .where(
+      sql`
+        WEEK(date, 0) = WEEK(CURDATE(), 0) AND YEAR(date) = YEAR(CURDATE())
+      `,
+    )
     .orderBy(desc(userLogs.id));
 };
 
@@ -266,19 +276,58 @@ export const findVerificationEmailToken = async ({ token, email }) => {
 };
 
 export const verifyUserEmailAndUpdate = async (email) => {
-  return db
-    .update(userTable)
-    .set({ isEmailValid: true })
-    .where(eq(userTable.email, email));
+  try {
+    return db
+      .update(userTable)
+      .set({ isEmailValid: true })
+      .where(eq(userTable.email, email));
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const clearVerifyEmailTokens = async (email) => {
-  const [user] = await db
-    .select()
-    .from(userTable)
-    .where(eq(userTable.email, email));
+  try {
+    const [user] = await db
+      .select()
+      .from(userTable)
+      .where(eq(userTable.email, email));
 
-  return await db
-    .delete(verifyEmailTokenTable)
-    .where(eq(verifyEmailTokenTable.userId, user.id));
+    return await db
+      .delete(verifyEmailTokenTable)
+      .where(eq(verifyEmailTokenTable.userId, user.id));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const newSendEmailVerification = async ({ userId, email }) => {
+  const randomToken = await generateRandomToken();
+
+  await insertVerifyEmailToken({ userId, token: randomToken });
+
+  const verifyEmailLink = createVerifyEmailLink({
+    email,
+    token: randomToken,
+  });
+
+  const mjmlTemplate = await fs.readFile(
+    path.join(import.meta.dirname, "..", "emails", "verify-email.mjml"),
+    "utf-8",
+  );
+
+  const mjmlTemplateData = ejs.render(mjmlTemplate, {
+    code: randomToken,
+    link: verifyEmailLink,
+  });
+
+  const htmlOutput = mjml2html(mjmlTemplateData).html;
+
+  const verifyURL = await sendEmail({
+    to: email,
+    subject: "Verify Your Email Address",
+    html: htmlOutput,
+  }).catch((err) => console.log(err));
+
+  return verifyURL;
 };

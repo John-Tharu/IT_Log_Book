@@ -397,58 +397,6 @@ nav {
   font-size: 20px;
   color: #16a085;
 }
-.profile-box {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
-  box-shadow:
-    rgba(0, 0, 0, 0.05) 0px 0px 0px 1px,
-    rgb(209, 213, 219) 0px 0px 0px 1px inset;
-  padding: 20px;
-  border-radius: 5px;
-}
-.profile {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  height: calc(100vh - 25vh);
-}
-.profile-img {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  overflow: hidden;
-  margin-bottom: 10px;
-}
-.profile-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.profile h1 {
-  font-size: clamp(6rem, 12vw, 18rem);
-  line-height: 1;
-  color: #16a085;
-}
-.profile p {
-  font-size: 20px;
-  color: #16a085;
-}
-.profile-detail {
-  gap: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
-  box-shadow:
-    rgba(0, 0, 0, 0.05) 0px 0px 0px 1px,
-    rgb(209, 213, 219) 0px 0px 0px 1px inset;
-  padding: 20px;
-  border-radius: 5px;
-}
 .verify_email_box {
   width: 100%;
   display: flex;
@@ -506,7 +454,58 @@ input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+.row {
+  height: 45px;
+  margin-bottom: 15px;
+  position: relative;
+}
+.row .error {
+  background-color: #f8d7da;
+  padding: 10px;
+  border-left: 5px solid red;
+  border-radius: 5px;
+}
 
+.profile {
+  width: 60%;
+  margin: 0 auto;
+  color: #fff;
+  border-radius: 5px;
+  box-shadow:
+    rgba(0, 0, 0, 0.05) 0px 0px 0px 1px,
+    rgb(209, 213, 219) 0px 0px 0px 1px inset;
+}
+.info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background-color: #16a085;
+  padding: 20px;
+  box-shadow:
+    rgba(0, 0, 0, 0.05) 0px 0px 0px 1px,
+    rgb(209, 213, 219) 0px 0px 0px 1px inset;
+}
+.profile-pic {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 10px;
+}
+.profile-pic img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.verify-part {
+  color: #12876f;
+  padding: 20px;
+}
+.verify {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
 @media only screen and (max-width: 1000px) {
   nav {
     left: 0;
@@ -519,6 +518,9 @@ input[type="number"]::-webkit-inner-spin-button {
 
   .details {
     grid-template-columns: repeat(2, 1fr);
+  }
+  .profile {
+    width: 95%;
   }
 }
 

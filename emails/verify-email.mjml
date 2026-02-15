@@ -1,0 +1,135 @@
+<mjml version="3.3.3">
+  <mj-body background-color="#F4F4F4">
+    <mj-section
+      background-color="#16a085"
+      background-repeat="repeat"
+      padding="20px 0"
+      text-align="center"
+    >
+      <mj-column>
+        <mj-text
+          font-size="30px"
+          color="#ffffff"
+          align="center"
+          font-weight="600"
+          >IT Daily Log Book</mj-text
+        >
+      </mj-column>
+    </mj-section>
+    <mj-section background-color="#ffffff">
+      <mj-column>
+        <mj-text
+          font-size="24px"
+          font-weight="500"
+          color="#1f2937"
+          align="center"
+          padding-bottom="20px"
+        >
+          Verify Your Email Address
+        </mj-text>
+        <mj-text
+          font-size="16px"
+          color="#4b5563"
+          line-height="24px"
+          padding-bottom="16px"
+        >
+          Thanks for signing up! Please verify your email address to complete
+          your registration.
+        </mj-text>
+        <mj-text
+          font-size="16px"
+          color="#4b5563"
+          line-height="24px"
+          padding-bottom="24px"
+        >
+          Your verification code:
+        </mj-text>
+
+        <mj-text
+          css-class="token-container"
+          font-size="28px"
+          font-weight="bold"
+          color="#111827"
+          align="center"
+          padding="20px"
+        >
+          <%= code %>
+        </mj-text>
+
+        <mj-spacer height="24px" />
+
+        <mj-text
+          font-size="16px"
+          color="#4b5563"
+          line-height="24px"
+          padding-bottom="24px"
+        >
+          Alternatively, you can directly verify your account by clicking the
+          button below:
+        </mj-text>
+
+        <mj-button
+          css-class="verification-button"
+          background-color="#0070f3"
+          color="white"
+          font-size="16px"
+          font-weight="500"
+          border-radius="6px"
+          inner-padding="15px 25px"
+          href="<%= link %>"
+        >
+          Verify My Email
+        </mj-button>
+
+        <mj-spacer height="24px" />
+
+        <mj-text font-size="16px" color="#4b5563" line-height="24px">
+          If you didn't sign up for this account, you can safely ignore this
+          email.
+        </mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-section
+      background-color="#16a085"
+      background-repeat="repeat"
+      padding="20px 0"
+      text-align="center"
+    >
+      <mj-column>
+        <mj-text
+          css-class="footer-text"
+          font-size="14px"
+          color="#ffffff"
+          line-height="20px"
+          align="center"
+          padding-top="16px"
+        >
+          <a
+            href="https://example.com/help"
+            style="color: #ffff; text-decoration: none"
+            >Help Center</a
+          >
+          &nbsp;&nbsp;|&nbsp;&nbsp;
+          <a
+            href="https://example.com/terms"
+            style="color: #fff; text-decoration: none"
+            >Terms</a
+          >
+          &nbsp;&nbsp;|&nbsp;&nbsp;
+          <a
+            href="https://example.com/privacy"
+            style="color: #fff; text-decoration: none"
+            >Privacy</a
+          >
+        </mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-section
+      background-repeat="repeat"
+      background-size="auto"
+      padding="20px 0px 20px 0px"
+      text-align="center"
+    >
+    </mj-section>
+  </mj-body>
+</mjml>

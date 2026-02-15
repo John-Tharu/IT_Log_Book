@@ -16,6 +16,11 @@
       <div class="verify_email_box">
         <h1>Verify Your Email</h1>
         <div class="email_box">
+          <% if(msg && msg.length > 0){ %>
+              <div class="row">
+                <p class="error">To verify your email <a href="<%= msg %>">Click Here</a></p>
+              </div>
+            <%  } %>
           <p>Email: <%= user.email %></p>
           <p>
             your email has not been verified yet, please verify your email by
@@ -39,6 +44,7 @@
               id="token"
               required
             />
+            <input type="hidden" name="email" value="<%= user.email %>" />
             <div class="link_button">
               <button>Verify Code</button>
             </div>

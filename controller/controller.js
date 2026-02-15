@@ -83,21 +83,22 @@ export const loglistpage = async (req, res) => {
     const logDate = new Date(dateStr);
     const today = new Date();
 
+    // Start of week (Monday)
     const startOfWeek = new Date(today);
-    startOfWeek.setDate(today.getDate() - today.getDay());
+    startOfWeek.setDate(today.getDate() - ((today.getDay() + 6) % 7));
     startOfWeek.setHours(0, 0, 0, 0);
 
+    // End of week (Sunday)
     const endOfWeek = new Date(startOfWeek);
     endOfWeek.setDate(startOfWeek.getDate() + 6);
     endOfWeek.setHours(23, 59, 59, 999);
 
     return logDate >= startOfWeek && logDate <= endOfWeek;
   };
-  // -----------------------------
 
-  // ---------- filtering ----------
+  // Filtering
   if (list === "week") {
-    userLogs = userLogs.filter((log) => log?.date && isThisWeek(log.date));
+    userLogs = await getThisWeekLog();
   }
 
   if (list === "solved") {
@@ -108,6 +109,7 @@ export const loglistpage = async (req, res) => {
     userLogs = userLogs.filter((log) => log?.status !== "Solved");
   }
   // -------------------------------
+  // console.log(userLogs);
 
   res.render("loglist", {
     title: titles[list],
@@ -119,14 +121,10 @@ export const loglistpage = async (req, res) => {
 export const viewlogpage = async (req, res) => {
   if (!req.user) return res.redirect("/login");
   const id = req.params.id;
-  // console.log(id);
 
   const [viewLog] = await getLogs(id);
-  // console.log(viewLog);
 
   const messageLog = await getMessages(id);
-
-  // console.log(messageLog);
 
   const solvedBy = viewLog.solvedBy;
 
@@ -135,8 +133,6 @@ export const viewlogpage = async (req, res) => {
   }
 
   const [user] = await getUserById(solvedBy);
-
-  // console.log(user);
 
   res.render("viewlog", { viewLog, name: user.name, messageLog });
 };
@@ -151,8 +147,6 @@ export const editpage = async (req, res) => {
   const id = req.params.id;
 
   const [log] = await getLogs(id);
-
-  // console.log(log);
 
   if (!log) return res.redirect("/404");
 
@@ -172,10 +166,7 @@ export const editpage = async (req, res) => {
 };
 
 export const logout = async (req, res) => {
-  // console.log(req.user.sessionId);
-  // await clearUserSession(req.user.sessionId);
   res.clearCookie("access_token");
-  // res.clearCookie("refresh_token");
   res.redirect("/");
 };
 
@@ -212,7 +203,7 @@ export const verifyEmailPage = (req, res) => {
 
   if (!user || user.isEmailValid) return res.redirect("/login");
 
-  res.render("verify_email");
+  res.render("verify_email", { msg: req.flash("error") });
 };
 
 export const verifyEmailToken = async (req, res) => {
@@ -222,11 +213,7 @@ export const verifyEmailToken = async (req, res) => {
     return res.send("Verification Link Expired");
   }
 
-  // console.log(data);
-
   const token = await findVerificationEmailToken(data);
-
-  // console.log(token);
 
   if (!token) {
     return res.send("Verification Link Expired");
@@ -234,7 +221,7 @@ export const verifyEmailToken = async (req, res) => {
 
   await verifyUserEmailAndUpdate(token.email);
 
-  clearVerifyEmailTokens(token.email);
+  await clearVerifyEmailTokens(token.email);
 
   res.redirect("/profile");
 };
