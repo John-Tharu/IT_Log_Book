@@ -104,7 +104,53 @@
             }) %>
           </div>
         </div>
+        <div class="pending-logs">
+          <div class="log-heading">
+            <i class="fa-solid fa-clock">
+              <h2>Today's Chart Data</h2>
+            </i>
+            <div class="chart">
+              <canvas id="myChart"></canvas>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      const ctx = document.getElementById('myChart');
+
+      new Chart(ctx, {
+        type: 'doughnut',
+        data : {
+          labels: [
+            'Total Logs',
+            'Solved',
+            'Pending'
+          ],
+          datasets: [{
+            label: new Date().toDateString(),
+            data: [<%= data.c %>, <%= data.b %>, <%= data. a %>],
+            backgroundColor: [
+              'rgb(255, 99, 132)',
+              'rgb(54, 162, 235)',
+              'rgb(255, 205, 86)'
+            ],
+            hoverOffset: 4
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+              suggestedMax: 10,
+              ticks: {
+                stepSize: 1,
+              }
+            }
+          }
+        }
+      });
+    </script>
   </body>
 </html>

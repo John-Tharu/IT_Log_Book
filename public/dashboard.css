@@ -156,7 +156,7 @@ nav {
 }
 .wrapper {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   width: 100%;
   padding: 20px;
   gap: 20px;
@@ -486,9 +486,10 @@ input[type="number"]::-webkit-inner-spin-button {
     rgb(209, 213, 219) 0px 0px 0px 1px inset;
 }
 .profile-pic {
-  width: 100px;
+  min-width: 100px;
   height: 100px;
   border-radius: 50%;
+  border: 2px solid #fff;
   overflow: hidden;
   margin-right: 10px;
 }
@@ -506,6 +507,29 @@ input[type="number"]::-webkit-inner-spin-button {
   align-items: center;
   gap: 20px;
 }
+.verify p span {
+  color: #fff;
+  font-weight: 600;
+  padding: 8px 15px;
+  background-color: #12876f;
+  border-radius: 20px;
+}
+.verify p .error {
+  background-color: #e67e22;
+  padding: 8px 10px;
+  border-radius: 20px;
+}
+.chart {
+  width: 90%;
+  height: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow:
+    rgba(0, 0, 0, 0.05) 0px 0px 0px 1px,
+    rgb(209, 213, 219) 0px 0px 0px 1px inset;
+}
+
 @media only screen and (max-width: 1000px) {
   nav {
     left: 0;

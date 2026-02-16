@@ -70,6 +70,21 @@ export const getUserLogs = () => {
   return db.select().from(userLogs).orderBy(desc(userLogs.id));
 };
 
+export const getUserLogsById = (id) => {
+  return db
+    .select()
+    .from(userLogs)
+    .where(eq(userLogs.user_id, id))
+    .orderBy(desc(userLogs.id));
+};
+
+export const getUserPendingLogsById = (id) => {
+  return db
+    .select()
+    .from(userLogs)
+    .where(and(eq(userLogs.user_id, id), eq(userLogs.status, "Pending")));
+};
+
 export const getLogs = (id) => {
   return db
     .select({

@@ -16,21 +16,127 @@
       <div class="profile">
         <div class="info">
           <div class="profile-pic">
-            <img src="/profile.svg" alt="" />
+            <img src="/profile.png" alt="" />
           </div>
           <div class="profile-info">
-            <h1>John Tharu</h1>
-            <p>john@gmail.com</p>
-            <p>Account CreatedAt : 2023</p>
+            <h1><%= user.name %></h1>
+            <p><%= user.email %></p>
+            <p>Account CreatedAt : <%= user.createdAt %></p>
           </div>
         </div>
         <div class="verify-part">
           <div class="verify">
-            <p>Email Verification : Not verified</p>
-            <button>Verify Now</button>
+            <% if(!user.isEmailValid) {
+              %>
+              <p>Email Verification : <span class="error"><i class="fa-solid fa-circle-exclamation"></i> Not verified</span></p>
+              <a href="/verify-email"><button type="submit">Verify Now</button></a>
+            <% } else {
+              %>
+              <p>Email Verification :  <span><i class="fa-solid fa-circle-check"></i> Verified</span></p>
+            <%
+            } %>
+          </div>
+        </div>
+      </div>
+      <div class="wrapper">
+        <div class="recent-logs">
+          <div class="log-heading">
+            <i class="fa-solid fa-clock-rotate-left">
+              <h2>Reported Logs</h2>
+            </i>
+
+           <% userLog.forEach((log) => { 
+                  const status = log.status === "Solved" ? "green" : "orange";
+              %>
+                <div class="log <%= status %>">
+                  <div class="log-name">
+                    <h3><%= log.description %></h3>
+                    <p><%= log.reportedBy %> · <%= log.date %> | <%= log.time %></p>
+                  </div>
+                  <div class="log-btn">
+                    <a href="/viewlog/<%= log.id %>">
+                      <button>View</button>
+                    </a>
+                  </div>
+                </div>
+              <% }) %>
+          </div>
+        </div>
+        <div class="pending-logs">
+          <div class="log-heading">
+            <i class="fa-solid fa-clock">
+              <h2>Pending Logs</h2>
+            </i>
+
+            <% userPendingLog.forEach((pending) =>{
+              %>
+                <div class="log orange">
+                  <div class="log-name">
+                    <h3><%= pending.description %></h3>
+                    <p><%= pending.reportedBy %> · <%= pending.date %> | <%= pending.time %></p>
+                  </div>
+                  <div class="log-btn">
+                    <a href="/viewlog/<%= pending.id %>">
+                      <button>View</button>
+                    </a>
+                  </div>
+                </div>
+              <%
+            }) %>
+          </div>
+        </div>
+        <div class="pending-logs">
+          <div class="log-heading">
+            <i class="fa-solid fa-clock">
+              <h2><%= user.name.split(" ")[0]+ "'s" + " Chart" %></h2>
+            </i>
+            <div class="chart">
+              <canvas id="myChart"></canvas>
+            </div>
           </div>
         </div>
       </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+  const ctx = document.getElementById('myChart');
+
+  const a = <%= userLog.length %>;
+  const b = <%= userLog.length - userPendingLog.length %>;
+  const c = <%= userPendingLog.length %>;
+
+  new Chart(ctx, {
+    type: 'polarArea',
+    data : {
+          labels: [
+            'Total Logs',
+            'Solved',
+            'Pending'
+          ],
+          datasets: [{
+            label: "<%= user.name %>",
+            data: [a,b,c],
+            backgroundColor: [
+              '#16a085',
+              '#2ecc71',
+              'rgb(255, 205, 86)'
+            ],
+            hoverOffset: 4
+          }]
+        },
+    options: {
+      scales: {
+       y: {
+            beginAtZero: true,
+            suggestedMax: 10,
+            ticks: {
+              stepSize: 1,
+          }
+        }
+      }
+    }
+  });
+</script>
+
   </body>
 </html>

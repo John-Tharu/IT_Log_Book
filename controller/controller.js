@@ -7,7 +7,9 @@ import {
   getThisWeekLog,
   getUserById,
   getUserLogs,
+  getUserLogsById,
   getUserPendingLogs,
+  getUserPendingLogsById,
   verifyUserEmailAndUpdate,
 } from "../model/model.js";
 import { verifyEmailSchema } from "../validation/validation.js";
@@ -44,17 +46,36 @@ export const dashboardpage = async (req, res) => {
 
   const userPendingLog = await getUserPendingLogs();
 
+  const todayString = new Date().toDateString();
+
+  const todaysPendingLogs = userPendingLog.filter(
+    (log) => new Date(log.createdAt).toDateString() === todayString,
+  );
+
+  const a = todaysPendingLogs.length;
+
   const userThisWeekLog = await getThisWeekLog();
 
   // console.log(userThisWeekLog);
 
   const userSolvedLog = await getSolvedLogs();
 
+  const todaysSolvedLogs = userSolvedLog.filter(
+    (log) => new Date(log.createdAt).toDateString() === todayString,
+  );
+
+  const b = todaysSolvedLogs.length;
+
+  const c = a + b;
+
+  const data = { a, b, c };
+
   res.render("dashboard", {
     userLog,
     userPendingLog,
     userThisWeekLog,
     userSolvedLog,
+    data,
   });
 };
 
@@ -191,7 +212,11 @@ export const profilePage = async (req, res) => {
 
   const [user] = await getUserById(id);
 
-  res.render("profile", { user });
+  const userLog = await getUserLogsById(id);
+
+  const userPendingLog = await getUserPendingLogsById(id);
+
+  res.render("profile", { user, userPendingLog, userLog });
 };
 
 export const verifyEmailPage = (req, res) => {
