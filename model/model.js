@@ -2,6 +2,7 @@ import { and, desc, eq, gte, lt, sql } from "drizzle-orm";
 import { db } from "../config/db.js";
 import {
   actionTable,
+  resetPasswordTokenTable,
   userLogs,
   userTable,
   verifyEmailTokenTable,
@@ -345,4 +346,43 @@ export const newSendEmailVerification = async ({ userId, email }) => {
   }).catch((err) => console.log(err));
 
   return verifyURL;
+};
+
+export const getForgetPasswordTemplate = async ({ name, link }) => {
+  const mjmlTemplate = await fs.readFile(
+    path.join(import.meta.dirname, "..", "emails", "forgot-password.mjml"),
+    "utf-8",
+  );
+
+  const mjmlTemplateData = ejs.render(mjmlTemplate, {
+    link,
+    name,
+  });
+
+  const htmlOutput = mjml2html(mjmlTemplateData).html;
+
+  return htmlOutput;
+};
+
+export const createResetPasswordLink = async ({ userId }) => {
+  const randomToken = crypto.randomBytes(32).toString("hex");
+
+  const hashRandomToken = crypto
+    .createHash("sha256")
+    .update(randomToken)
+    .digest("hex");
+
+  db.transaction(async (tx) => {
+    await tx
+      .delete(resetPasswordTokenTable)
+      .where(eq(resetPasswordTokenTable.userId, userId));
+
+    await tx
+      .insert(resetPasswordTokenTable)
+      .values({ userId, hashToken: hashRandomToken });
+  });
+
+  const resetPasswordLink = `${process.env.HOSTNAME}/reset-password?token=${hashRandomToken}`;
+
+  return resetPasswordLink;
 };

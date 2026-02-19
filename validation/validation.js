@@ -47,3 +47,20 @@ export const verifyEmailSchema = z.object({
   token: z.string().trim().nonempty({ message: "Token is required" }).length(8),
   email: z.string().email({ message: "Enter Valid Email Address" }).trim(),
 });
+
+export const forgetPasswordValidation = z.object({
+  email: z.string().email({ message: "Enter Valid Email Address" }).trim(),
+});
+
+export const resetPasswordSchema = z
+  .object({
+    password: z
+      .string()
+      .min(8, { message: "Password must be at least 8 characters" }),
+    cpassword: z
+      .string()
+      .min(8, { message: "Password must be at least 8 characters" }),
+  })
+  .refine(({ password, cpassword }) => password === cpassword, {
+    message: "Passwords do not match",
+  });

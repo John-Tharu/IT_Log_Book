@@ -132,6 +132,11 @@ body {
 .wrapper form .date-time .date {
   width: 50%;
 }
+.msg {
+  margin: 10px auto;
+  width: 38vw;
+  padding: 20px;
+}
 @media only screen and (max-width: 600px) {
   .wrapper {
     width: 90%;
@@ -142,5 +147,8 @@ body {
   }
   .wrapper form .date-time .date {
     width: 100%;
+  }
+  .msg {
+    width: 80vw;
   }
 }

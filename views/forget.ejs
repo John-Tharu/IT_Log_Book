@@ -13,7 +13,12 @@
   <body>
     <div class="wrapper">
       <div class="title"><span>Forget Password</span></div>
-      <form action="#" method="post">
+      <% if(formSubmitted){ %>
+        <div class="msg">
+          <p>If the email address you entered is valid, a password reset link has been sent to your registered email address. Please check your inbox and spam folder.</p>
+        </div>
+     <% } else{ %>
+      <form action="/forget" method="post">
          <% if(msg && msg.length > 0){ %>
           <div class="row">
             <p class="error"><%= msg %></p>
@@ -21,12 +26,14 @@
           <%  } %>
         <div class="row">
           <i class="fa-regular fa-envelope"></i>
-          <input type="email" placeholder="Email Address" required />
+          <input type="email" name="email" placeholder="Your Email Address" required />
         </div>
         <div class="row button">
           <input type="submit" value="Send" />
         </div>
       </form>
-    </div>
+      <%
+      } %>
+    </div> 
   </body>
 </html>

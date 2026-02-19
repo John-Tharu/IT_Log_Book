@@ -18,7 +18,7 @@
         <div class="email_box">
           <% if(msg && msg.length > 0){ %>
               <div class="row">
-                <p class="error">To verify your email <a href="<%= msg %>">Click Here</a></p>
+                <p class="success"><%= msg %></p>
               </div>
             <%  } %>
           <p>Email: <%= user.email %></p>

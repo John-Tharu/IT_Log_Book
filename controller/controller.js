@@ -30,7 +30,10 @@ export const signuppage = (req, res) => {
 };
 
 export const forgetpage = (req, res) => {
-  res.render("forget", { msg: req.flash("error") });
+  res.render("forget", {
+    msg: req.flash("error"),
+    formSubmitted: req.flash("formSubmitted")[0],
+  });
 };
 
 export const addlogpage = (req, res) => {

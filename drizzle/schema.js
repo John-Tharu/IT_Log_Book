@@ -3,6 +3,7 @@ import {
   boolean,
   int,
   mysqlTable,
+  text,
   timestamp,
   varchar,
 } from "drizzle-orm/mysql-core";
@@ -60,5 +61,17 @@ export const actionTable = mysqlTable("actions_table", {
     .notNull()
     .references(() => userTable.id),
 
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const resetPasswordTokenTable = mysqlTable("reset_password_token", {
+  id: int().autoincrement().primaryKey(),
+  userId: int("user_id")
+    .notNull()
+    .references(() => userTable.id, { onDelete: "cascade" }),
+  hashToken: text("hash_token").notNull(),
+  expiresAt: timestamp("expires_at")
+    .default(sql`(CURRENT_TIMESTAMP + INTERVAL 1 DAY)`)
+    .notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });

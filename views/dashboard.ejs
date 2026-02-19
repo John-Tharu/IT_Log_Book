@@ -64,12 +64,13 @@
               <h2>Recent Logs</h2>
             </i>
 
-           <% userLog.slice(0, 4).forEach((log) => { 
+           <% let count = 0; 
+           userLog.slice(0, 4).forEach((log) => { 
                   const status = log.status === "Solved" ? "green" : "orange";
               %>
                 <div class="log <%= status %>">
                   <div class="log-name">
-                    <h3><%= log.description %></h3>
+                    <h3><%= count += 1 %>. <%= log.description %></h3>
                     <p><%= log.reportedBy %> · <%= log.date %> | <%= log.time %></p>
                   </div>
                   <div class="log-btn">
@@ -87,11 +88,12 @@
               <h2>Pending Logs</h2>
             </i>
 
-            <% userPendingLog.slice(0,4).forEach((pending) =>{
+            <% let pendingCount = 0; 
+            userPendingLog.slice(0,4).forEach((pending) =>{
               %>
                 <div class="log orange">
                   <div class="log-name">
-                    <h3><%= pending.description %></h3>
+                    <h3><%= pendingCount += 1 %>. <%= pending.description %></h3>
                     <p><%= pending.reportedBy %> · <%= pending.date %> | <%= pending.time %></p>
                   </div>
                   <div class="log-btn">

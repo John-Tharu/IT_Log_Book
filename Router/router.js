@@ -21,6 +21,7 @@ import {
   editLog,
   login,
   resendVerificationLink,
+  resetPassword,
   signup,
 } from "../controller/postcontroller.js";
 
@@ -32,7 +33,7 @@ router.route("/login").get(loginpage).post(login);
 
 router.route("/signup").get(signuppage).post(signup);
 
-router.route("/forget").get(forgetpage);
+router.route("/forget").get(forgetpage).post(resetPassword);
 
 router.route("/addlog").get(addlogpage).post(addlog);
 

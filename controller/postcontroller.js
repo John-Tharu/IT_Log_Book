@@ -1,3 +1,4 @@
+import { sendEmail } from "../lib/nodemailer.js";
 import {
   addAnotherAction,
   addLogs,
@@ -5,10 +6,12 @@ import {
   checkEmail,
   checkemail,
   checkPass,
+  createResetPasswordLink,
   createVerifyEmailLink,
   editLogs,
   generateRandomToken,
   generateToken,
+  getForgetPasswordTemplate,
   getUserById,
   hashpass,
   insertVerifyEmailToken,
@@ -16,6 +19,7 @@ import {
 } from "../model/model.js";
 import {
   anotherMessageValidation,
+  forgetPasswordValidation,
   loginValidation,
   signupValidation,
   userLogsValidation,
@@ -247,4 +251,41 @@ export const resendVerificationLink = async (req, res) => {
   req.flash("error", verifyURL);
 
   res.redirect("/verify-email");
+};
+
+export const resetPassword = async (req, res) => {
+  const { data, error } = forgetPasswordValidation.safeParse(req.body);
+
+  if (error) {
+    req.flash("error", error.errors[0].message);
+    return res.redirect("/forget");
+  }
+
+  const { email } = data;
+
+  console.log(email);
+
+  const [user] = await checkEmail(email);
+
+  if (!user) {
+    req.flash("error", "User not found");
+    return res.redirect("/forget");
+  }
+
+  const resetLink = await createResetPasswordLink({
+    userId: user.id,
+  });
+
+  // console.log(resetLink);
+
+  const html = await getForgetPasswordTemplate({
+    name: user.name,
+    link: resetLink,
+  });
+
+  await sendEmail({ to: user.email, subject: "Reset Password", html });
+
+  req.flash("formSubmitted", true);
+
+  res.redirect("/forget");
 };
