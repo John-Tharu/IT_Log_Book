@@ -7,6 +7,15 @@ CREATE TABLE `actions_table` (
 	CONSTRAINT `actions_table_id` PRIMARY KEY(`id`)
 );
 --> statement-breakpoint
+CREATE TABLE `reset_password_token` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`user_id` int NOT NULL,
+	`hash_token` text NOT NULL,
+	`expires_at` timestamp NOT NULL DEFAULT (CURRENT_TIMESTAMP + INTERVAL 1 DAY),
+	`created_at` timestamp NOT NULL DEFAULT (now()),
+	CONSTRAINT `reset_password_token_id` PRIMARY KEY(`id`)
+);
+--> statement-breakpoint
 CREATE TABLE `user_logs` (
 	`id` int AUTO_INCREMENT NOT NULL,
 	`date` varchar(255) NOT NULL,
@@ -36,7 +45,18 @@ CREATE TABLE `users_table` (
 	CONSTRAINT `users_table_email_unique` UNIQUE(`email`)
 );
 --> statement-breakpoint
+CREATE TABLE `verify_email_token` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`user_id` int NOT NULL,
+	`token` varchar(8) NOT NULL,
+	`expires_at` timestamp NOT NULL DEFAULT (CURRENT_TIMESTAMP + INTERVAL 1 DAY),
+	`created_at` timestamp NOT NULL DEFAULT (now()),
+	CONSTRAINT `verify_email_token_id` PRIMARY KEY(`id`)
+);
+--> statement-breakpoint
 ALTER TABLE `actions_table` ADD CONSTRAINT `actions_table_log_id_user_logs_id_fk` FOREIGN KEY (`log_id`) REFERENCES `user_logs`(`id`) ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE `actions_table` ADD CONSTRAINT `actions_table_user_id_users_table_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users_table`(`id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE `reset_password_token` ADD CONSTRAINT `reset_password_token_user_id_users_table_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users_table`(`id`) ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE `user_logs` ADD CONSTRAINT `user_logs_user_id_users_table_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users_table`(`id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE `user_logs` ADD CONSTRAINT `user_logs_solved_by_users_table_id_fk` FOREIGN KEY (`solved_by`) REFERENCES `users_table`(`id`) ON DELETE no action ON UPDATE no action;
+ALTER TABLE `user_logs` ADD CONSTRAINT `user_logs_solved_by_users_table_id_fk` FOREIGN KEY (`solved_by`) REFERENCES `users_table`(`id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE `verify_email_token` ADD CONSTRAINT `verify_email_token_user_id_users_table_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users_table`(`id`) ON DELETE cascade ON UPDATE no action;
