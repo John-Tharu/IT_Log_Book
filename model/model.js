@@ -382,7 +382,27 @@ export const createResetPasswordLink = async ({ userId }) => {
       .values({ userId, hashToken: hashRandomToken });
   });
 
-  const resetPasswordLink = `${process.env.HOSTNAME}/reset-password?token=${hashRandomToken}`;
+  const resetPasswordLink = `${process.env.HOSTNAME}/reset-password/${hashRandomToken}`;
 
   return resetPasswordLink;
+};
+
+export const getUserByToken = (token) => {
+  return db
+    .select()
+    .from(resetPasswordTokenTable)
+    .where(eq(resetPasswordTokenTable.hashToken, token));
+};
+
+export const clearRestPasswordToken = (userId) => {
+  return db
+    .delete(resetPasswordTokenTable)
+    .where(eq(resetPasswordTokenTable.userId, userId));
+};
+
+export const updatePassword = (userId, pass) => {
+  return db
+    .update(userTable)
+    .set({ pass: pass }) // ✅ correct
+    .where(eq(userTable.id, userId));
 };

@@ -54,13 +54,13 @@ export const forgetPasswordValidation = z.object({
 
 export const resetPasswordSchema = z
   .object({
-    password: z
+    pass: z
       .string()
       .min(8, { message: "Password must be at least 8 characters" }),
-    cpassword: z
+    cpass: z
       .string()
       .min(8, { message: "Password must be at least 8 characters" }),
   })
-  .refine(({ password, cpassword }) => password === cpassword, {
+  .refine(({ pass, cpass }) => pass === cpass, {
     message: "Passwords do not match",
   });

@@ -6,6 +6,7 @@ import {
   getSolvedLogs,
   getThisWeekLog,
   getUserById,
+  getUserByToken,
   getUserLogs,
   getUserLogsById,
   getUserPendingLogs,
@@ -252,4 +253,18 @@ export const verifyEmailToken = async (req, res) => {
   await clearVerifyEmailTokens(token.email);
 
   res.redirect("/profile");
+};
+
+export const resetPasswordPage = async (req, res) => {
+  const token = req.params.token;
+
+  // console.log(token);
+
+  const [user] = await getUserByToken(token);
+
+  // console.log(user);
+
+  if (!user) return res.redirect("/expirepage");
+
+  res.render("resetPage", { token, msg: req.flash("error") });
 };

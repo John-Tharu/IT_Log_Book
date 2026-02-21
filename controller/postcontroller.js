@@ -6,6 +6,7 @@ import {
   checkEmail,
   checkemail,
   checkPass,
+  clearRestPasswordToken,
   createResetPasswordLink,
   createVerifyEmailLink,
   editLogs,
@@ -13,14 +14,17 @@ import {
   generateToken,
   getForgetPasswordTemplate,
   getUserById,
+  getUserByToken,
   hashpass,
   insertVerifyEmailToken,
   newSendEmailVerification,
+  updatePassword,
 } from "../model/model.js";
 import {
   anotherMessageValidation,
   forgetPasswordValidation,
   loginValidation,
+  resetPasswordSchema,
   signupValidation,
   userLogsValidation,
 } from "../validation/validation.js";
@@ -288,4 +292,42 @@ export const resetPassword = async (req, res) => {
   req.flash("formSubmitted", true);
 
   res.redirect("/forget");
+};
+
+export const resetPass = async (req, res) => {
+  const token = req.params.token;
+
+  // console.log(`Token : ${token}`);
+
+  const [tokenData] = await getUserByToken(token);
+
+  // console.log(
+  //   `Token data : ${tokenData} , ${tokenData.userId} , ${tokenData.token} , ${tokenData.expiresAt}`,
+  // );
+
+  if (!tokenData) return res.redirect("/expirepage");
+
+  // console.log(req.body);
+
+  const { data, error } = resetPasswordSchema.safeParse(req.body);
+
+  if (error) {
+    console.log(error);
+    req.flash("error", error.errors[0].message);
+    return res.redirect(`/reset-password/${req.params.token}`);
+  }
+
+  const { pass } = data;
+
+  // console.log(tokenData.userId);
+
+  await clearRestPasswordToken(tokenData.userId);
+
+  const password = await hashpass(pass);
+
+  await updatePassword(tokenData.userId, password);
+
+  req.flash("error", "Password reset successfully");
+
+  res.redirect("/login");
 };

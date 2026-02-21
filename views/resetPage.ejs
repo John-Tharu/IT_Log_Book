@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Signup | Form</title>
+    <link rel="stylesheet" href="/style.css" />
+    <script
+      src="https://kit.fontawesome.com/bb7a749298.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="title"><span>Reset Password</span></div>
+      <form  action="" id="myForm" method="post">
+        <% if(msg && msg.length > 0){ %>
+          <div class="row">
+          <p class="error"><%= msg %></p>
+        </div>
+      <%  } %>
+        <div class="row">
+          <i class="fas fa-lock"></i>
+          <input
+            type="password"
+            name="pass"
+            id="password"
+            placeholder="New Password"
+            required
+          />
+          <i class="fa-solid fa-eye open"></i>
+        </div>
+        <div class="row">
+          <i class="fas fa-lock"></i>
+          <input
+            type="password"
+            name="cpass"
+            id="cpassword"
+            placeholder="Confirm Password"
+            required
+          />
+          <i class="fa-solid fa-eye cpass"></i>
+        </div>
+        <div class="row button">
+          <input type="submit" value="Submit" />
+        </div>
+      </form>
+    </div>
+  </body>
+  <script>
+    const form = document.getElementById("myForm");
+
+    form.addEventListener("submit", () => {
+      setTimeout(() => {
+        form.reset();
+      }, 0);
+    });
+
+    function togglePassword(eyeIcon, inputId) {
+      const input = document.getElementById(inputId);
+
+      eyeIcon.addEventListener("click", () => {
+        const isPassword = input.type === "password";
+
+        input.type = isPassword ? "text" : "password";
+        eyeIcon.classList.toggle("fa-eye", !isPassword);
+        eyeIcon.classList.toggle("fa-eye-slash", isPassword);
+      });
+    }
+
+    togglePassword(document.querySelector(".fa-eye"), "password");
+    togglePassword(document.querySelector(".cpass"), "cpassword");
+    
+  </script>
+</html>
