@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Total Log | Log Book</title>
+    <title>Search Log | Log Book</title>
     <link rel="stylesheet" href="/dashboard.css" />
     <script
       src="https://kit.fontawesome.com/bb7a749298.js"
@@ -30,8 +30,8 @@
       <div class="all-logs">
         <div class="log-heading">
           <div class="title">
-            <i class="fa-solid <%= icon %>">
-              <h2 style="text-transform: capitalize"><%= title %></h2>
+            <i class="fa-solid fa-magnifying-glass">
+              <h2 style="text-transform: capitalize">Search Logs</h2>
             </i>
             <div class="search">
               <form action="/search" method="post">
@@ -42,8 +42,8 @@
           </div>
           
 
-          <% if (Array.isArray(userLogs) && userLogs.length) { %>
-            <% userLogs.forEach((log) => {
+          <% if (Array.isArray(data) && data.length) { %>
+            <% data.forEach((log) => {
               const status = log.status === "Solved" ? "green" : "orange";
               %>
               <div class="all-log-box">

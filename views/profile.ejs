@@ -26,15 +26,24 @@
         </div>
         <div class="verify-part">
           <div class="verify">
-            <% if(!user.isEmailValid) {
-              %>
-              <p>Email Verification : <span class="error"><i class="fa-solid fa-circle-exclamation"></i> Not verified</span></p>
-              <a href="/verify-email"><button type="submit">Verify Now</button></a>
-            <% } else {
-              %>
-              <p>Email Verification :  <span><i class="fa-solid fa-circle-check"></i> Verified</span></p>
-            <%
-            } %>
+            <div class="verify-email">
+                <% if(!user.isEmailValid) {
+                %>
+                <div class="action">
+                  <p>Email Verification : <i title="Not Verified" class="fa-solid fa-circle-exclamation"></i> <a href="/verify-email"><button type="submit">Verify Now</button></a></p>
+                </div>
+              <% } else {
+                %>
+                <div class="action">
+                  <p>Email Verification :  <i title="Verified" class="fa-solid fa-circle-check"></i></p>
+                </div>
+              <%
+              } %>
+            </div>
+            <div class="action">
+              <a href="#" title="Edit"><i class="fa-solid fa-pen"></i></a>
+              <a href="#" title="Change Password"><i class="fa-solid fa-key"></i></a>
+            </div>
           </div>
         </div>
       </div>
@@ -46,6 +55,11 @@
             </i>
 
            <% let count = 0;
+           if(userLog.length === 0) {
+              %>
+                <h4>No Reported Logs</h4>
+              <%
+            }
             userLog.forEach((log) => { 
                   const status = log.status === "Solved" ? "green" : "orange";
               %>

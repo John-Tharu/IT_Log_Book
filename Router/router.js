@@ -11,6 +11,7 @@ import {
   page404,
   profilePage,
   resetPasswordPage,
+  searchLogs,
   signuppage,
   verifyEmailPage,
   verifyEmailToken,
@@ -62,5 +63,7 @@ router.route("/verify-email").get(verifyEmailPage);
 router.route("/resend_verification_link").post(resendVerificationLink);
 
 router.route("/verify-email-token").get(verifyEmailToken);
+
+router.route("/search").post(searchLogs);
 
 export const routerdata = router;

@@ -299,7 +299,7 @@ nav {
   }
 }
 
-.ticket-card .action i {
+.action i {
   font-size: 14px;
   color: #ffffff;
   border-radius: 50%;
@@ -308,7 +308,7 @@ nav {
   background-color: #16a085;
   transition: all 0.3s ease;
 }
-.ticket-card .action i:hover {
+.action i:hover {
   background-color: #12876f;
 }
 .ticket-header {
@@ -511,6 +511,7 @@ input[type="number"]::-webkit-inner-spin-button {
 .verify {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 20px;
 }
 .verify p span {
@@ -534,6 +535,32 @@ input[type="number"]::-webkit-inner-spin-button {
   box-shadow:
     rgba(0, 0, 0, 0.05) 0px 0px 0px 1px,
     rgb(209, 213, 219) 0px 0px 0px 1px inset;
+}
+.title {
+  display: flex;
+  justify-content: space-between;
+}
+.title .search input[type="search"] {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid lightgrey;
+  font-size: 14px;
+  outline: none;
+  margin-bottom: 20px;
+}
+.title .search input[type="submit"] {
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: #12876f;
+  font-size: 14px;
+  outline: none;
+  margin-bottom: 20px;
+  cursor: pointer;
+  color: #fff;
+}
+.title .search input[type="submit"]:hover {
+  background-color: #16a085;
 }
 
 @media only screen and (max-width: 1000px) {
@@ -560,9 +587,14 @@ input[type="number"]::-webkit-inner-spin-button {
     grid-template-columns: repeat(1, 1fr);
   }
 
-  .dashboard {
+  .dashboard,
+  .info,
+  .verify {
     flex-direction: column;
     gap: 20px;
+  }
+  .chart {
+    height: auto;
   }
 
   /* Hide normal navbar links on mobile */
@@ -580,5 +612,14 @@ input[type="number"]::-webkit-inner-spin-button {
   .email_box,
   .token_box {
     width: 100%;
+  }
+  .title .search input[type="search"] {
+    width: 75%;
+  }
+  .title {
+    flex-direction: column;
+  }
+  .search form {
+    text-align: center;
   }
 }

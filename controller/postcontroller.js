@@ -68,18 +68,13 @@ export const login = async (req, res) => {
   const { data, error } = loginValidation.safeParse(req.body);
 
   if (error) {
-    // console.log(error);
     req.flash("error", error.errors[0].message);
     return res.redirect("/login");
   }
 
   const { email, pass } = data;
 
-  // console.log(email, pass);
-
   const [user] = await checkEmail(email);
-
-  // console.log(user);
 
   if (!user) {
     req.flash("error", "Please check username or password");
@@ -100,8 +95,6 @@ export const login = async (req, res) => {
     verifyEmail: user.isEmailValid,
   });
 
-  // console.log(token);
-
   res.cookie("access_token", token);
 
   res.redirect("/");
@@ -114,8 +107,6 @@ export const addlog = async (req, res) => {
     req.flash("error", error.errors[0].message);
     return res.redirect("/addlog");
   }
-
-  // console.log(data);
 
   const { date, time, report, location, description, action, status } = data;
 
@@ -132,8 +123,6 @@ export const addlog = async (req, res) => {
 
   const solvedBy = status === "Solved" ? userId : null;
 
-  // console.log(solvedBy);
-
   const logs = await addLogs({
     date,
     time,
@@ -145,8 +134,6 @@ export const addlog = async (req, res) => {
     userId,
     solvedBy,
   });
-
-  // console.log(logs);
 
   if (!logs) {
     req.flash("error", "Something went wrong");
@@ -182,8 +169,6 @@ export const editLog = async (req, res) => {
   const userId = req.user.id;
 
   const solvedBy = status === "Solved" ? userId : null;
-
-  // console.log(solvedBy);
 
   const logs = await editLogs({
     id,
@@ -224,8 +209,6 @@ export const anotherMessage = async (req, res) => {
 
   const { action, status } = data;
 
-  // console.log(data);
-
   const captalAction = action.charAt(0).toUpperCase() + action.slice(1);
 
   const logs = await addAnotherAction({
@@ -234,8 +217,6 @@ export const anotherMessage = async (req, res) => {
     status,
     userId,
   });
-
-  // console.log(logs);
 
   res.redirect(`/viewlog/${id}`);
 };
@@ -297,17 +278,9 @@ export const resetPassword = async (req, res) => {
 export const resetPass = async (req, res) => {
   const token = req.params.token;
 
-  // console.log(`Token : ${token}`);
-
   const [tokenData] = await getUserByToken(token);
 
-  // console.log(
-  //   `Token data : ${tokenData} , ${tokenData.userId} , ${tokenData.token} , ${tokenData.expiresAt}`,
-  // );
-
   if (!tokenData) return res.redirect("/expirepage");
-
-  // console.log(req.body);
 
   const { data, error } = resetPasswordSchema.safeParse(req.body);
 
@@ -318,8 +291,6 @@ export const resetPass = async (req, res) => {
   }
 
   const { pass } = data;
-
-  // console.log(tokenData.userId);
 
   await clearRestPasswordToken(tokenData.userId);
 

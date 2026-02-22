@@ -22,11 +22,11 @@
         <div class="rows date-time">
           <div class="date">
             <label for="">Issue Date</label>
-            <input type="date" name="date" required />
+            <input type="date" name="date" id="date" required />
           </div>
           <div class="time">
             <label for="">Issue Time</label>
-            <input type="time" name="time" required />
+            <input type="time" name="time" id="time" required />
           </div>
         </div>
         <div class="rows">
@@ -67,5 +67,24 @@
         form.reset();
       }, 0);
     });
+
+    const dateInput = document.getElementById('date');
+    const today = new Date();
+
+  // Format date as YYYY-MM-DD
+  const yyyy = today.getFullYear();
+  const mm = String(today.getMonth() + 1).padStart(2, '0'); // Months start at 0
+  const dd = String(today.getDate()).padStart(2, '0');
+
+  const formattedDate = `${yyyy}-${mm}-${dd}`;
+
+  // Set as input value
+  dateInput.value = formattedDate;
+
+   const timeInput = document.getElementById('time');
+  const hh = String(today.getHours()).padStart(2, '0');
+  const min = String(today.getMinutes()).padStart(2, '0');
+  timeInput.value = `${hh}:${min}`;
+
 </script>
 </html>

@@ -65,6 +65,11 @@
             </i>
 
            <% let count = 0; 
+           if(userLog.length === 0) {
+              %>
+                <h4>No Recent Logs</h4>
+              <%
+            }
            userLog.slice(0, 4).forEach((log) => { 
                   const status = log.status === "Solved" ? "green" : "orange";
               %>
@@ -89,6 +94,11 @@
             </i>
 
             <% let pendingCount = 0; 
+            if(userPendingLog.length === 0) {
+              %>
+                <h4>No Pending Logs</h4>
+              <%
+            }
             userPendingLog.slice(0,4).forEach((pending) =>{
               %>
                 <div class="log orange">

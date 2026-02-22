@@ -11,6 +11,7 @@ import {
   getUserLogsById,
   getUserPendingLogs,
   getUserPendingLogsById,
+  searchData,
   verifyUserEmailAndUpdate,
 } from "../model/model.js";
 import { verifyEmailSchema } from "../validation/validation.js";
@@ -50,7 +51,17 @@ export const dashboardpage = async (req, res) => {
 
   const userPendingLog = await getUserPendingLogs();
 
-  const todayString = new Date().toDateString();
+  const now = new Date();
+
+  // 5 hours 45 minutes in milliseconds
+  const offset = (5 * 60 + 45) * 60 * 1000;
+
+  // Add offset
+  const nepalTime = new Date(now.getTime() + offset);
+
+  const todayString = nepalTime.toDateString();
+
+  // console.log(todayString);
 
   const todaysPendingLogs = userPendingLog.filter(
     (log) => new Date(log.createdAt).toDateString() === todayString,
@@ -267,4 +278,12 @@ export const resetPasswordPage = async (req, res) => {
   if (!user) return res.redirect("/expirepage");
 
   res.render("resetPage", { token, msg: req.flash("error") });
+};
+
+export const searchLogs = async (req, res) => {
+  const { search } = req.body;
+
+  const data = await searchData(search);
+
+  res.render("searchlogs", { data });
 };

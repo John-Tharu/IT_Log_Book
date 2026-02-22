@@ -1,4 +1,4 @@
-import { and, desc, eq, gte, lt, sql } from "drizzle-orm";
+import { and, desc, eq, gte, like, lt, or, sql } from "drizzle-orm";
 import { db } from "../config/db.js";
 import {
   actionTable,
@@ -405,4 +405,19 @@ export const updatePassword = (userId, pass) => {
     .update(userTable)
     .set({ pass: pass }) // ✅ correct
     .where(eq(userTable.id, userId));
+};
+
+export const searchData = (search) => {
+  return db
+    .select()
+    .from(userLogs)
+    .where(
+      or(
+        like(userLogs.description, `%${search}%`),
+        like(userLogs.reportedBy, `%${search}%`),
+        like(userLogs.location, `%${search}%`),
+        like(userLogs.action, `%${search}%`),
+        like(userLogs.status, `%${search}%`),
+      ),
+    );
 };
