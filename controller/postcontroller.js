@@ -1,4 +1,6 @@
 import { sendEmail } from "../lib/nodemailer.js";
+import fs from "fs/promises";
+import path from "path";
 import {
   addAnotherAction,
   addLogs,
@@ -19,9 +21,11 @@ import {
   insertVerifyEmailToken,
   newSendEmailVerification,
   updatePassword,
+  updateUserById,
 } from "../model/model.js";
 import {
   anotherMessageValidation,
+  editProfileValidation,
   forgetPasswordValidation,
   loginValidation,
   resetPasswordSchema,
@@ -301,4 +305,39 @@ export const resetPass = async (req, res) => {
   req.flash("error", "Password reset successfully");
 
   res.redirect("/login");
+};
+
+export const editprofile = async (req, res) => {
+  const { data, error } = editProfileValidation.safeParse(req.body);
+
+  if (error) {
+    req.flash("error", error.errors[0].message);
+    return res.redirect("/editprofile");
+  }
+
+  const [user] = await getUserById(req.user.id);
+
+  let file = user.avatar; // keep old avatar
+
+  if (req.file) {
+    // New avatar uploaded
+    file = req.file.filename;
+
+    // Delete old avatar if not default
+    if (user.avatar && user.avatar !== "default.png") {
+      const oldFilePath = path.join("public/uploads", user.avatar);
+      try {
+        await fs.access(oldFilePath);
+        await fs.unlink(oldFilePath);
+        console.log("Old avatar deleted:", user.avatar);
+      } catch (err) {
+        console.log("Failed to delete old avatar:", err);
+      }
+    }
+  }
+
+  await updateUserById({ userId: req.user.id, name: data.name, avatar: file });
+
+  req.flash("success", "Profile updated successfully!");
+  res.redirect("/profile");
 };

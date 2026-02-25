@@ -64,3 +64,7 @@ export const resetPasswordSchema = z
   .refine(({ pass, cpass }) => pass === cpass, {
     message: "Passwords do not match",
   });
+
+export const editProfileValidation = z.object({
+  name: z.string().trim().nonempty({ message: "Name is required" }),
+});

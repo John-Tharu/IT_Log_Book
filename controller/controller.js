@@ -45,9 +45,10 @@ export const addlogpage = (req, res) => {
 
 export const dashboardpage = async (req, res) => {
   if (!req.user) return res.redirect("/login");
-  const userLog = await getUserLogs();
 
-  // console.log(userLog);
+  const [user] = await getUserById(req.user.id);
+
+  const userLog = await getUserLogs();
 
   const userPendingLog = await getUserPendingLogs();
 
@@ -86,6 +87,7 @@ export const dashboardpage = async (req, res) => {
   const data = { a, b, c };
 
   res.render("dashboard", {
+    user,
     userLog,
     userPendingLog,
     userThisWeekLog,
@@ -156,7 +158,12 @@ export const loglistpage = async (req, res) => {
 
 export const viewlogpage = async (req, res) => {
   if (!req.user) return res.redirect("/login");
+
   const id = req.params.id;
+
+  const userId = req.user.id;
+
+  const [userData] = await getUserById(userId);
 
   const [viewLog] = await getLogs(id);
 
@@ -165,12 +172,17 @@ export const viewlogpage = async (req, res) => {
   const solvedBy = viewLog.solvedBy;
 
   if (!solvedBy) {
-    return res.render("viewlog", { viewLog, messageLog });
+    return res.render("viewlog", { user: userData, viewLog, messageLog });
   }
 
   const [user] = await getUserById(solvedBy);
 
-  res.render("viewlog", { viewLog, name: user.name, messageLog });
+  res.render("viewlog", {
+    user: userData,
+    viewLog,
+    name: user.name,
+    messageLog,
+  });
 };
 
 export const page404 = (req, res) => {
@@ -286,4 +298,24 @@ export const searchLogs = async (req, res) => {
   const data = await searchData(search);
 
   res.render("searchlogs", { data });
+};
+
+export const editprofilepage = async (req, res) => {
+  if (!req.user) return res.redirect("/login");
+
+  const id = req.user.id;
+
+  const [user] = await getUserById(id);
+
+  res.render("editprofile", {
+    msg: req.flash("error"),
+    name: user.name,
+    avatar: user.avatar,
+  });
+};
+
+export const changePasswordPage = async (req, res) => {
+  if (!req.user) return res.redirect("/login");
+
+  res.render("changepassword", { msg: req.flash("error") });
 };

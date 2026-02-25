@@ -421,3 +421,10 @@ export const searchData = (search) => {
       ),
     );
 };
+
+export const updateUserById = ({ userId, name, avatar }) => {
+  return db
+    .update(userTable)
+    .set({ name: name, avatar: avatar })
+    .where(eq(userTable.id, userId));
+};

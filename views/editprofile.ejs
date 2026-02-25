@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Profile | Form</title>
+    <link rel="stylesheet" href="/style.css" />
+    <script
+      src="https://kit.fontawesome.com/bb7a749298.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="title"><span>Edit Profile</span></div>
+      <form id="myForm" action="/editprofile" method="post" enctype="multipart/form-data">
+        <% if(msg && msg.length > 0){ %>
+          <div class="row">
+            <p class="error"><%= msg %></p>
+          </div>
+          <%  } %>
+        <div class="rows">
+          <label for="file">Profile Pic</label>
+          <div class="avatar-upload">
+                <% if(avatar) {
+                %>
+                <img id="avatar-preview-img" src="/uploads/<%= avatar %>" alt="" />
+                <% } else {
+                %>
+                <img id="avatar-preview-img" src="/uploads/default.png" alt="" />
+               <% } %>
+          </div>
+          <div class="file-wrapper">
+            <input 
+                type="file" 
+                id="avatar" 
+                name="avatar"
+                hidden 
+                accept=".jpg,.jpeg,.png"
+            >
+
+            <button type="button" onclick="document.getElementById('avatar').click()">
+                Upload Image
+            </button>
+
+            <span id="fileName">No file chosen</span>
+          </div>
+        </div>
+        <div class="rows">
+          <label for="name">Name</label>
+          <input type="text" name="name" value="<%= name %>" id="name">
+        </div>
+        <div class="row button">
+          <input type="submit" value="Submit" />
+        </div>
+      </form>
+    </div>
+    <script>
+        const fileInput = document.getElementById("avatar");
+        const fileName = document.getElementById("fileName");
+
+        fileInput.addEventListener("change", function () {
+        fileName.textContent = this.files[0]?.name || "No file chosen";
+        });
+
+        //preview image
+        const avatar = document.getElementById("avatar");
+        avatar.addEventListener("change" ,(e) =>{
+            const file = e.target.files[0];
+            console.log("file", e);
+
+            if(file){
+                const reader = new FileReader();
+                reader.onload = function(event){
+                    const avatarPreviewImg = document.getElementById("avatar-preview-img");
+                    avatarPreviewImg.src = event.target.result;
+                    avatarPreviewImg.style.display = "block";
+                }
+                reader.readAsDataURL(file);
+            }
+        })
+    </script>
+  </body>
+</html>

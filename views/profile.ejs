@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard | Log Book</title>
+    <title>Profile | Log Book</title>
     <link rel="stylesheet" href="/dashboard.css" />
     <script
       src="https://kit.fontawesome.com/bb7a749298.js"
@@ -16,12 +16,12 @@
       <div class="profile">
         <div class="info">
           <div class="profile-pic">
-            <img src="/profile.png" alt="" />
+            <img src="/uploads/<%= user.avatar %>" alt="" />
           </div>
           <div class="profile-info">
             <h1><%= user.name %></h1>
-            <p><%= user.email %></p>
-            <p>Account CreatedAt : <%= user.createdAt %></p>
+            <p><i class="fa-solid fa-envelope"></i> <%= user.email %></p>
+            <p><i class="fa-solid fa-calendar"></i> Account CreatedAt : <%= user.createdAt %></p>
           </div>
         </div>
         <div class="verify-part">
@@ -41,8 +41,8 @@
               } %>
             </div>
             <div class="action">
-              <a href="#" title="Edit"><i class="fa-solid fa-pen"></i></a>
-              <a href="#" title="Change Password"><i class="fa-solid fa-key"></i></a>
+              <a href="/editprofile" title="Edit"><i class="fa-solid fa-pen"></i></a>
+              <a href="/change-password" title="Change Password"><i class="fa-solid fa-key"></i></a>
             </div>
           </div>
         </div>

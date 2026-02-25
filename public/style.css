@@ -67,7 +67,8 @@ body {
   font-size: 18px;
 }
 .wrapper form .row .open,
-.wrapper form .row .cpass {
+.wrapper form .row .cpass,
+.wrapper form .row .opass {
   position: absolute;
   top: 0;
   right: 0;
@@ -136,6 +137,38 @@ body {
   margin: 10px auto;
   width: 38vw;
   padding: 20px;
+}
+.file-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.file-wrapper button {
+  background: #16a085;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.avatar-upload {
+  margin: 10px 0;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.avatar-upload img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+#fileName {
+  display: inline-block;
+  max-width: 250px; /* adjust based on your layout */
+  overflow: hidden;
+  word-break: break-word;
+  white-space: nowrap;
 }
 @media only screen and (max-width: 600px) {
   .wrapper {
