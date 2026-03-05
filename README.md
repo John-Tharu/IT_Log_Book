@@ -254,9 +254,9 @@ Add screenshots here for:
 - Dashboard
   ![Dashboard](screenshots/Dashboard.png)
 - Log List
-  ![LogList](screenshots/Total Logs.png)
+  ![LogList](screenshots/TotalLogs.png)
 - Add Log Form
-  ![AddLog](screenshots/Add Log.png)
+  ![AddLog](screenshots/AddLog.png)
 - Profile
   ![Profile](screenshots/Profile.png)
 
