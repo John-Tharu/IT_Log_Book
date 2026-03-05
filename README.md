@@ -82,15 +82,12 @@ npm install
 
 Create a `.env` file in the root folder.
 
-    PORT=3000
-
-    DB_HOST=localhost
-    DB_USER=root
-    DB_PASSWORD=yourpassword
-    DB_NAME=it_log_book
-
-    EMAIL_USER=your_email@gmail.com
-    EMAIL_PASS=your_app_password
+    PORT="YOUR_PORT_NUMBER"
+    MY_SECRET_KEY="YOUR_SECRET_KEY"
+    JWT_SECRET_KEY="YOUR_JWT_SECRET_KEY"
+    HOSTNAME="http://localhost:YOUR_PORT_NUMBER"
+    EMAIL_ADDRESS="YOUR_EMAIL_ADDRESS"
+    EMAIL_PASS="YOUR_GMAIL_APP_PASSWORD"
 
 ### 4️⃣ Run the Application
 
@@ -117,7 +114,7 @@ and migrations.
 
 ---
 
-# 1️⃣ Create MySQL Database
+### 1️⃣ Create MySQL Database
 
 Run the following command in MySQL to create the database:
 
@@ -133,14 +130,11 @@ SHOW DATABASES;
 
 ---
 
-# 2️⃣ Configure Environment Variables
+### 2️⃣ Configure Environment Variables
 
-Create a `.env` file in the root directory and add:
+Check `.env` file in the root directory and add:
 
-    DB_HOST=localhost
-    DB_USER=root
-    DB_PASSWORD=yourpassword
-    DB_NAME=it_log_book
+    DATABASE_URL="mysql://DATABASE_USER:DATABASE_PASSWORD@localhost:3306/YOUR_DATABASE_NAME"
 
 ---
 
@@ -256,9 +250,15 @@ The dashboard provides:
 Add screenshots here for:
 
 - Login Page
+  ![Login](screenshots/Login.png)
 - Dashboard
+  ![Dashboard](screenshots/Dashboard.png)
 - Log List
+  ![LogList](screenshots/Total Logs.png)
 - Add Log Form
+  ![AddLog](screenshots/Add Log.png)
+- Profile
+  ![Profile](screenshots/Profile.png)
 
 Example:
 
