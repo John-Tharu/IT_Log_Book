@@ -110,6 +110,125 @@ The app will run on:
 
 ---
 
+# 🗄️ Database Setup (MySQL + Drizzle ORM)
+
+This project uses **MySQL** with **Drizzle ORM** for database management
+and migrations.
+
+---
+
+# 1️⃣ Create MySQL Database
+
+Run the following command in MySQL to create the database:
+
+```sql
+CREATE DATABASE it_log_book;
+```
+
+(Optional) Verify the database:
+
+```sql
+SHOW DATABASES;
+```
+
+---
+
+# 2️⃣ Configure Environment Variables
+
+Create a `.env` file in the root directory and add:
+
+    DB_HOST=localhost
+    DB_USER=root
+    DB_PASSWORD=yourpassword
+    DB_NAME=it_log_book
+
+---
+
+# ⚡ Drizzle ORM Setup
+
+Drizzle ORM is used for **schema management and database migrations**.
+
+---
+
+# 📦 Generate Migration Files
+
+```bash
+npx drizzle-kit generate
+```
+
+### What this command does:
+
+- Reads your **Drizzle schema files**
+- Compares schema changes
+- Generates **SQL migration files** automatically
+
+Example generated structure:
+
+    drizzle/
+     └── migrations/
+          └── 0001_create_users_table.sql
+
+These files contain SQL queries that define your database structure.
+
+---
+
+# 🗄️ Run Database Migrations
+
+```bash
+npx drizzle-kit migrate
+```
+
+### What this command does:
+
+- Executes generated migration files
+- Creates tables in MySQL
+- Applies schema updates automatically
+
+Example output:
+
+    ✔ applying migration 0001_create_users_table.sql
+    ✔ applying migration 0002_create_logs_table.sql
+
+After running this command, all necessary **tables will be created in
+your database**.
+
+---
+
+# 🔁 Typical Workflow
+
+Whenever you update your schema:
+
+### Step 1 --- Update schema file
+
+Modify your `schema.js` or schema file.
+
+### Step 2 --- Generate migration
+
+```bash
+npx drizzle-kit generate
+```
+
+### Step 3 --- Apply migration
+
+```bash
+npx drizzle-kit migrate
+```
+
+---
+
+# 📁 Example Drizzle Folder Structure
+
+    drizzle
+     ├── schema.js
+     └── migrations
+          ├── 0001_users.sql
+          └── 0002_logs.sql
+
+---
+
+✅ This process ensures your **database structure stays synchronized
+with your application schema**.
+
 # 📊 Dashboard Features
 
 The dashboard provides:
