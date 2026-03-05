@@ -428,3 +428,10 @@ export const updateUserById = ({ userId, name, avatar }) => {
     .set({ name: name, avatar: avatar })
     .where(eq(userTable.id, userId));
 };
+
+export const updateUserPassById = ({ userId, pass }) => {
+  return db
+    .update(userTable)
+    .set({ pass: pass })
+    .where(eq(userTable.id, userId));
+};

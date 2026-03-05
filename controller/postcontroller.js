@@ -22,9 +22,11 @@ import {
   newSendEmailVerification,
   updatePassword,
   updateUserById,
+  updateUserPassById,
 } from "../model/model.js";
 import {
   anotherMessageValidation,
+  changePasswordValidation,
   editProfileValidation,
   forgetPasswordValidation,
   loginValidation,
@@ -339,5 +341,32 @@ export const editprofile = async (req, res) => {
   await updateUserById({ userId: req.user.id, name: data.name, avatar: file });
 
   req.flash("success", "Profile updated successfully!");
+  res.redirect("/profile");
+};
+
+export const changePassword = async (req, res) => {
+  const { data, error } = changePasswordValidation.safeParse(req.body);
+
+  if (error) {
+    req.flash("error", error.errors[0].message);
+    return res.redirect("/change-password");
+  }
+
+  const [user] = await getUserById(req.user.id);
+
+  const { old } = data;
+
+  const isMatch = await checkPass(old, user.pass);
+
+  if (!isMatch) {
+    req.flash("error", "Incorrect Old password");
+    return res.redirect("/change-password");
+  }
+
+  const newPass = await hashpass(data.pass);
+
+  await updateUserPassById({ userId: user.id, pass: newPass });
+
+  req.flash("success", "Password changed successfully!");
   res.redirect("/profile");
 };

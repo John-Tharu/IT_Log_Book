@@ -23,6 +23,7 @@ import {
 import {
   addlog,
   anotherMessage,
+  changePassword,
   editLog,
   editprofile,
   login,
@@ -100,6 +101,6 @@ router
   .get(editprofilepage)
   .post(avatarUpload.single("avatar"), editprofile);
 
-router.route("/change-password").get(changePasswordPage);
+router.route("/change-password").get(changePasswordPage).post(changePassword);
 
 export const routerdata = router;

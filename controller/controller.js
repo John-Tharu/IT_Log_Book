@@ -243,7 +243,12 @@ export const profilePage = async (req, res) => {
 
   const userPendingLog = await getUserPendingLogsById(id);
 
-  res.render("profile", { user, userPendingLog, userLog });
+  res.render("profile", {
+    user,
+    userPendingLog,
+    userLog,
+    msg: req.flash("success"),
+  });
 };
 
 export const verifyEmailPage = (req, res) => {

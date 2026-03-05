@@ -68,3 +68,19 @@ export const resetPasswordSchema = z
 export const editProfileValidation = z.object({
   name: z.string().trim().nonempty({ message: "Name is required" }),
 });
+
+export const changePasswordValidation = z
+  .object({
+    old: z
+      .string()
+      .min(8, { message: "Password must be at least 8 characters" }),
+    pass: z
+      .string()
+      .min(8, { message: "Password must be at least 8 characters" }),
+    cpass: z
+      .string()
+      .min(8, { message: "Password must be at least 8 characters" }),
+  })
+  .refine(({ pass, cpass }) => pass === cpass, {
+    message: "Passwords do not match",
+  });
