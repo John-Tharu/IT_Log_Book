@@ -54,8 +54,13 @@ Session - Flash Messages
     │   └── images
     │
     ├── middleware
-    ├── utils
-    ├── database
+    ├── config
+    ├── drizzle
+    ├── emails
+    ├── lib
+    ├── public
+    ├── screenshots
+    ├── validation
     │
     ├── app.js
     ├── package.json
