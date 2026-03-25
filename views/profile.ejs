@@ -22,7 +22,13 @@
       <div class="profile">
         <div class="info">
           <div class="profile-pic">
+            <% if(user.avatar){
+            %>
             <img src="/uploads/<%= user.avatar %>" alt="" />
+            <% } else {
+            %>
+            <img src="/profilepic.png" alt="" />
+           <% } %>
           </div>
           <div class="profile-info">
             <h1><%= user.name %></h1>
